@@ -84,7 +84,7 @@ function LayoutContent({ children, currentPageName }) {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-8">
               {navigation.map((item) => (
                 <Link
                   key={item.page}
