@@ -6,6 +6,9 @@ exports.handler = async (event, context) => {
 
     const name = data.name;
     const email = data.email;
+    const phone = data.phone;
+    const systemType = data.systemType;
+    const panelCount = data.panelCount;
     const message = data.message;
 
     const transporter = nodemailer.createTransport({
@@ -23,8 +26,14 @@ exports.handler = async (event, context) => {
       to: process.env.SMTP_USER,
       subject: `New enquiry from ${name}`,
       text: `
+New enquiry received:
+
 Name: ${name}
 Email: ${email}
+Phone: ${phone}
+System Type: ${systemType}
+Panel Count: ${panelCount}
+
 Message:
 ${message}
       `
