@@ -128,33 +128,25 @@ function LayoutContent({ children, currentPageName }) {
         </nav>
 
         {/* Mobile Menu */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="md:hidden bg-gray-50 dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 overflow-hidden"
-              >
-              <div className="px-6 py-6 space-y-4">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.page}
-                    to={createPageUrl(item.page)}
-                    className={`block text-base tracking-wide transition-colors ${
-                      currentPageName === item.page 
-                        ? 'text-amber-500' 
-                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {mobileMenuOpen && (
+  <div className="md:hidden bg-gray-50 dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 overflow-hidden">
+    <div className="px-6 py-6 space-y-4">
+      {navigation.map((item) => (
+        <Link
+          key={item.page}
+          to={createPageUrl(item.page)}
+          className={`block text-base tracking-wide transition-colors ${
+            currentPageName === item.page 
+              ? 'text-amber-500' 
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+          }`}
+        >
+          {item.name}
+        </Link>
+      ))}
+    </div>
+  </div>
+)}
       </header>
 
       {/* Main Content */}
