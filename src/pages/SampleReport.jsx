@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
-import { motion } from 'framer-motion';
 import { 
   FileText, 
   AlertTriangle, 
@@ -85,11 +84,7 @@ export default function SampleReport() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.6)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.6)_100%)]" />
         </div>
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+          <div>
             <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-sm mb-6">
               Sample Report
             </p>
@@ -101,20 +96,14 @@ export default function SampleReport() {
               Every Solar Scan inspection includes a comprehensive engineering report 
               with clear findings and actionable recommendations.
             </p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Report Preview */}
       <section className="py-16 px-6">
         <div className="max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="bg-gray-50 dark:bg-slate-900 rounded-2xl border border-gray-200 dark:border-slate-800 overflow-hidden"
-          >
+          <div className="bg-gray-50 dark:bg-slate-900 rounded-2xl border border-gray-200 dark:border-slate-800 overflow-hidden">
             {/* Report Header */}
             <div className="p-8 border-b border-gray-200 dark:border-slate-800 bg-gradient-to-r from-gray-100 to-white dark:from-slate-900 dark:to-slate-950">
               <div className="flex items-center justify-between flex-wrap gap-4">
@@ -144,12 +133,8 @@ export default function SampleReport() {
             <div className="p-8">
               <div className="grid md:grid-cols-2 gap-6">
                 {reportSections.map((section, index) => (
-                  <motion.div
+                  <div
                     key={section.title}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
                     className="p-5 bg-white dark:bg-slate-950 rounded-xl border border-gray-200 dark:border-slate-800"
                   >
                     <div className="flex items-start gap-3">
@@ -161,40 +146,30 @@ export default function SampleReport() {
                         <p className="text-sm text-slate-600 dark:text-slate-500">{section.description}</p>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Sample Findings */}
       <section className="py-24 px-6 bg-gray-50 dark:bg-slate-900">
         <div className="max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
+          <div className="text-center mb-16">
             <h2 className="text-3xl font-light text-slate-900 dark:text-white mb-6">
               Sample fault classifications
             </h2>
             <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
               Here's how we classify and present findings in your report.
             </p>
-          </motion.div>
+          </div>
 
           <div className="space-y-4">
-            {sampleFindings.map((finding, index) => (
-              <motion.div
+            {sampleFindings.map((finding) => (
+              <div
                 key={finding.type}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="p-6 bg-white dark:bg-slate-950 rounded-xl border border-gray-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center gap-6"
               >
                 <div className={`w-14 h-14 rounded-xl ${finding.bg} flex items-center justify-center shrink-0`}>
@@ -217,7 +192,7 @@ export default function SampleReport() {
                   <p className="text-sm text-slate-500 dark:text-slate-500 mb-1">Temperature Differential</p>
                   <p className="text-xl font-light text-slate-900 dark:text-white">{finding.temp}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -226,20 +201,14 @@ export default function SampleReport() {
       {/* Thermal Imagery Example */}
       <section className="py-24 px-6 bg-white dark:bg-slate-950">
         <div className="max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
+          <div className="text-center mb-16">
             <h2 className="text-3xl font-light text-slate-900 dark:text-white mb-6">
               Thermal imagery included
             </h2>
             <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
               High-resolution annotated thermal images clearly showing anomaly locations and severity.
             </p>
-          </motion.div>
+          </div>
 
           {/* Thermal Image */}
           <div className="aspect-video rounded-2xl overflow-hidden border border-gray-200 dark:border-slate-800 relative">
@@ -260,12 +229,7 @@ export default function SampleReport() {
       {/* CTA */}
       <section className="py-24 px-6 bg-gray-50 dark:bg-slate-900">
         <div className="max-w-3xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          <div>
             <h2 className="text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">
               Get your own comprehensive report
             </h2>
@@ -274,12 +238,12 @@ export default function SampleReport() {
             </p>
             <Link
               to={createPageUrl('Contact')}
-              className="group inline-flex items-center gap-3 px-8 py-4 bg-amber-500 text-slate-950 font-medium rounded-full hover:bg-amber-400 transition-all duration-300"
+              className="group inline-flex items-center gap-3 px-8 py-4 bg-amber-500 text-slate-950 font-medium rounded-full hover:bg-amber-400 transition-all duration-100"
             >
               Book a Survey
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4" />
             </Link>
-          </motion.div>
+          </div>
         </div>
       </section>
     </div>

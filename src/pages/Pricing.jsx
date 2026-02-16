@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
-import { motion } from 'framer-motion';
 import { Check, ArrowRight } from 'lucide-react';
 
 const pricingTiers = [
@@ -13,7 +12,7 @@ const pricingTiers = [
     unit: "up to 14 panels",
     features: [
       "+£10 per 4 panels above 14",
-      "Maximum 50 panels",
+      "Maximum 49 panels",
       "Drone thermal survey",
       "Visual inspection",
       "Hotspot detection",
@@ -27,7 +26,7 @@ const pricingTiers = [
     description: "For commercial rooftop systems",
     originalPrice: "210",
     price: "159",
-    unit: "from 51 panels",
+    unit: "from 50 panels",
     features: [
       "+£10 per 10 panels above 50",
       "Full thermal survey",
@@ -38,24 +37,6 @@ const pricingTiers = [
       "3 business day turnaround"
     ],
     popular: true
-  },
-  {
-    name: "Utility Scale",
-    description: "For large-scale solar farms",
-    price: "800",
-    unit: "base price",
-    features: [
-      "+£110 per MW",
-      "Full thermal & visual survey",
-      "Fault detection and classification",
-      "String-level performance analysis",
-      "Comprehensive mapping deliverables",
-      "Executive summary for decision-makers",
-      "Full engineering-grade technical report",
-      "Corrective action recommendations",
-      "Priority scheduling for urgent cases"
-    ],
-    popular: false
   }
 ];
 
@@ -75,11 +56,7 @@ export default function Pricing() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.6)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.6)_100%)]" />
         </div>
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+          <div>
             <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-sm mb-6">
               Pricing
             </p>
@@ -91,21 +68,17 @@ export default function Pricing() {
               Clear, upfront pricing for all system sizes. Every survey includes 
               comprehensive thermal imaging and a detailed report.
             </p>
-          </motion.div>
-        </div>
-      </section>
+            </div>
+            </div>
+            </section>
 
-      {/* Pricing Cards */}
+            {/* Pricing Cards */}
       <section className="py-16 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8">
-            {pricingTiers.map((tier, index) => (
-              <motion.div
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {pricingTiers.map((tier) => (
+              <div
                 key={tier.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
                 className={`relative p-8 rounded-2xl border ${
                   tier.popular 
                     ? 'bg-gradient-to-b from-amber-500/10 to-gray-50 dark:to-slate-900 border-amber-500/30' 
@@ -165,27 +138,38 @@ export default function Pricing() {
                 >
 Book Survey
                   <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  </div>
+                  ))}
+                  </div>
+
+          {/* Utility Scale Notice */}
+          <div className="mt-12 text-center max-w-2xl mx-auto">
+            <div className="p-6 bg-gray-50 dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800">
+              <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-2">Utility Scale Projects</h3>
+              <p className="text-slate-600 dark:text-slate-400 mb-4">
+                We offer comprehensive thermal inspection services for MW-scale solar farms and large commercial installations.
+              </p>
+              <Link
+                to={createPageUrl('Contact')}
+                className="inline-flex items-center gap-2 text-amber-500 hover:text-amber-400 font-medium transition-colors"
+              >
+                Contact us for custom pricing
+                <ArrowRight className="w-4 h-4" />
                 </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+                </div>
+                </div>
+                </div>
+                </section>
 
       {/* FAQ / Info */}
       <section className="py-24 px-6 bg-gray-50 dark:bg-slate-900">
         <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
+          <div className="text-center mb-16">
             <h2 className="text-3xl font-light text-slate-900 dark:text-white mb-6">What's included</h2>
-          </motion.div>
+            </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-8">
             {[
               {
                 title: "Every survey includes",
@@ -209,13 +193,9 @@ Book Survey
                   "Satisfaction guarantee"
                 ]
               }
-            ].map((section, index) => (
-              <motion.div
+            ].map((section) => (
+              <div
                 key={section.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="p-8 bg-white dark:bg-slate-950 rounded-2xl border border-gray-200 dark:border-slate-800"
               >
                 <h3 className="text-xl font-medium text-slate-900 dark:text-white mb-6">{section.title}</h3>
@@ -226,22 +206,17 @@ Book Survey
                       <span className="text-slate-600 dark:text-slate-400">{item}</span>
                     </li>
                   ))}
-                </ul>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+                  </ul>
+                  </div>
+                  ))}
+                  </div>
+                  </div>
+                  </section>
 
       {/* CTA */}
       <section className="py-24 px-6 bg-white dark:bg-slate-950">
         <div className="max-w-3xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          <div>
             <h2 className="text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">
               Not sure which option?
             </h2>
@@ -253,10 +228,10 @@ Book Survey
               className="inline-flex items-center gap-3 px-8 py-4 border border-gray-300 dark:border-slate-700 text-slate-900 dark:text-white font-medium rounded-full hover:border-gray-400 dark:hover:border-slate-500 hover:bg-gray-100 dark:hover:bg-slate-800/50 transition-all duration-300"
             >
               Contact Us
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-    </div>
-  );
-}
+              </Link>
+              </div>
+              </div>
+              </section>
+              </div>
+              );
+              }

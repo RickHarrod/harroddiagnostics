@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { createPageUrl } from './utils';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { ThemeToggle } from './components/ThemeToggle';
 import { ThemeProvider } from './components/ThemeProvider';
@@ -24,12 +23,9 @@ function LayoutContent({ children, currentPageName }) {
 
   useEffect(() => {
     setMounted(true);
-    // Set page title
-    document.title = 'Harrod Diagnostics';
-    // Check for stored theme or system preference
+    // Check for stored theme preference, default to dark
     const stored = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initialTheme = stored || (prefersDark ? 'dark' : 'light');
+    const initialTheme = stored || 'dark';
     setTheme(initialTheme);
     document.documentElement.classList.toggle('dark', initialTheme === 'dark');
   }, []);
@@ -51,6 +47,7 @@ function LayoutContent({ children, currentPageName }) {
 
   useEffect(() => {
     setMobileMenuOpen(false);
+    window.scrollTo(0, 0);
   }, [location]);
 
   const logoSrc = mounted && theme === 'light'
@@ -128,34 +125,50 @@ function LayoutContent({ children, currentPageName }) {
         </nav>
 
         {/* Mobile Menu */}
-        <AnimatePresence>
-  {mobileMenuOpen && (
-    <motion.div
-      initial={{ opacity: 0, height: 0 }}
-      animate={{ opacity: 1, height: 'auto' }}
-      exit={{ opacity: 0, height: 0 }}
-      transition={{ duration: 0.3 }}
-      className="md:hidden bg-gray-50 dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 overflow-hidden"
-      >
-      <div className="px-6 py-6 space-y-4">
-        {navigation.map((item) => (
-          <Link
-            key={item.page}
-            to={createPageUrl(item.page)}
-            className={`block text-base tracking-wide transition-colors ${
-              currentPageName === item.page 
-                ? 'text-amber-500' 
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-            }`}
-          >
-            {item.name}
-          </Link>
-        ))}
-      </div>
-    </motion.div>
-  )}
-</AnimatePresence>
-      </header>
+          {mobileMenuOpen && (
+            <div className="md:hidden bg-gray-50 dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800"
+              >
+              <div className="px-6 py-6 space-y-4">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.page}
+                    to={createPageUrl(item.page)}
+                    className={`block text-base tracking-wide transition-colors ${
+                      currentPageName === item.page 
+                        ? 'text-amber-500' 
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+                <div className="pt-4 border-t border-gray-200 dark:border-slate-800">
+                  <button
+                    onClick={toggleTheme}
+                    className="w-full flex items-center gap-3 py-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                    aria-label="Toggle theme"
+                  >
+                    {theme === 'dark' ? (
+                      <>
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <span>Light Mode</span>
+                      </>
+                    ) : (
+                      <>
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                        <span>Dark Mode</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+                </div>
+                </div>
+                )}
+                </header>
 
       {/* Main Content */}
       <main>

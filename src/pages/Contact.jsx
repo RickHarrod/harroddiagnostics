@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -57,13 +56,18 @@ export default function Contact() {
     <div className="min-h-screen bg-white dark:bg-slate-950 pt-24">
       {/* Hero */}
       <section className="py-24 px-6 relative overflow-hidden">
-        
+        {/* Background image */}
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1592833159057-6dbb3c0c0645?w=1920&q=80" 
+            alt="Modern home solar installation"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/85 to-white dark:from-slate-950/90 dark:via-slate-950/85 dark:to-slate-950" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.6)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.5)_100%)]" />
+        </div>
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+          <div>
             <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-sm mb-6">
               Contact
             </p>
@@ -75,22 +79,16 @@ export default function Contact() {
               Whether you need a domestic survey or a large-scale commercial inspection, 
               we're here to help.
             </p>
-          </motion.div>
-        </div>
-      </section>
+            </div>
+            </div>
+            </section>
 
-      {/* Contact Form & Info */}
+            {/* Contact Form & Info */}
       <section className="py-16 px-6">
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-5 gap-12">
             {/* Contact Info */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-2"
-            >
+            <div className="lg:col-span-2">
               <div className="space-y-8">
                 <div>
                   <h2 className="text-2xl font-light text-slate-900 dark:text-white mb-6">Get in touch</h2>
@@ -137,17 +135,11 @@ export default function Contact() {
                     surveys within 5-7 business days.
                   </p>
                 </div>
-              </div>
-            </motion.div>
+                </div>
+                </div>
 
-            {/* Form */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-3"
-            >
+                {/* Form */}
+                <div className="lg:col-span-3">
               {submitted ? (
                 <div className="p-12 bg-gray-50 dark:bg-slate-900 rounded-2xl border border-gray-200 dark:border-slate-800 text-center">
                   <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-green-500/20 flex items-center justify-center">
@@ -259,11 +251,11 @@ export default function Contact() {
                     )}
                   </Button>
                 </form>
-              )}
-            </motion.div>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
+                )}
+                </div>
+                </div>
+                </div>
+                </section>
+                </div>
+                );
+                }
