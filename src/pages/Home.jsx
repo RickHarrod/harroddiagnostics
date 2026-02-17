@@ -50,11 +50,11 @@ export default function Home() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
-                to={createPageUrl('Contact')}
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 border border-gray-300 dark:border-slate-700 text-slate-900 dark:text-white font-medium rounded-full hover:border-gray-400 dark:hover:border-slate-500 hover:bg-gray-100 dark:hover:bg-slate-800/50 transition-all duration-100"
-              >
-                Get a Quote
-              </Link>
+  to={createPageUrl('Contact')}
+  className="inline-flex items-center justify-center gap-3 px-8 py-4 border border-gray-400 dark:border-slate-700 text-slate-900 dark:text-white font-medium rounded-full hover:border-gray-500 dark:hover:border-slate-500 hover:bg-gray-100 dark:hover:bg-slate-800/50 transition-all duration-100"
+>
+  Get a Quote
+</Link>
               </div>
               </div>
               </div>
