@@ -175,13 +175,13 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white dark:from-slate-950 dark:via-slate-950/95 dark:to-slate-950" />
         </div>
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <p className="text-2xl md:text-3xl lg:text-4xl text-[#D8D2C4]/70 font-light leading-relaxed">
-            Harrod Diagnostics delivers independent aerial thermal surveys for solar PV systems. 
-            <span className="text-[#D8D2C4]"> High-resolution thermal imaging</span>, 
-            <span className="text-[#B46A3C]"> engineering grade workflows</span>, and 
-            <span className="text-[#D8D2C4]"> clear, actionable insights</span> for installers, 
-            asset owners, and maintenance teams.
-            </p>
+        <p className="text-2xl md:text-3xl lg:text-4xl text-slate-600 dark:text-slate-400 font-light leading-relaxed max-w-4xl mx-auto">
+  Harrod Diagnostics delivers independent aerial thermal surveys for solar PV systems. 
+  <span className="text-slate-700 dark:text-[#D8D2C4]"> High-resolution thermal imaging</span>, 
+  <span className="text-amber-600 dark:text-[#B46A3C]"> engineering grade workflows</span>, and 
+  <span className="text-slate-700 dark:text-[#D8D2C4]"> clear, actionable insights</span> for installers, 
+  asset owners, and maintenance teams.
+</p>
             </div>
             </section>
 
