@@ -117,14 +117,24 @@ export default function SampleReport() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <button className="flex items-center gap-2 px-4 py-2 bg-gray-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-gray-300 dark:hover:bg-slate-700 transition-colors">
-                    <Eye className="w-4 h-4" />
-                    Preview
-                  </button>
-                  <button className="flex items-center gap-2 px-4 py-2 bg-amber-500 text-slate-950 rounded-lg hover:bg-amber-400 transition-colors">
-                    <Download className="w-4 h-4" />
-                    Download PDF
-                  </button>
+                <a 
+  href="https://rawcdn.githack.com/RickHarrod/harroddiagnostics/main/Sample%20report%20Feb%202026.pdf"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="flex items-center gap-2 px-4 py-2 bg-gray-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-gray-300 dark:hover:bg-slate-700 transition-colors"
+>
+  <Eye className="w-4 h-4" />
+  Preview
+</a>
+
+<a 
+  href="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/main/Sample%20report%20Feb%202026.pdf"
+  download
+  className="flex items-center gap-2 px-4 py-2 bg-amber-500 text-slate-950 rounded-lg hover:bg-amber-400 transition-colors"
+>
+  <Download className="w-4 h-4" />
+  Download PDF
+</a>
                 </div>
               </div>
             </div>
