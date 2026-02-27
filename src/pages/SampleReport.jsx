@@ -118,7 +118,7 @@ export default function SampleReport() {
                 </div>
                 <div className="flex items-center gap-3">
                 <a 
-  href="https://rawcdn.githack.com/RickHarrod/harroddiagnostics/main/Sample%20report%20Feb%202026.pdf"
+  href="https://viewscreen.githubusercontent.com/view/pdf?browser=safari&bypass_fastly=true&color_mode=auto&commit=158eebcc3232cc0c912655b6aa4b97a18d5591e3&device=unknown_device&docs_host=https%3A%2F%2Fdocs.github.com&enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f5269636b486172726f642f686172726f64646961676e6f73746963732f313538656562636333323332636330633931323635356236616134623937613138643535393165332f53616d706c652532307265706f7274253230466562253230323032362e706466&link_underline_enabled=true&logged_in=true&nwo=RickHarrod%2Fharroddiagnostics&path=Sample+report+Feb+2026.pdf&platform=mac&repository_id=1158049117&repository_type=Repository&version=18#8150fe9f-1b07-44d6-956b-90cc14cfafcc"
   target="_blank"
   rel="noopener noreferrer"
   className="flex items-center gap-2 px-4 py-2 bg-gray-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-gray-300 dark:hover:bg-slate-700 transition-colors"
