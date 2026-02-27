@@ -51,12 +51,12 @@ function LayoutContent({ children, currentPageName }) {
   }, [location]);
 
   const logoSrc = mounted && theme === 'light'
-    ? 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698cab618b14d7dafc7e8318/aa7e74a04_SmallPNGLightmode.png'
-    : 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698cab618b14d7dafc7e8318/c3e65bfed_SmallPNGDarkmode.png';
+    ? 'https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/642ae13033cc910845d4c55052cd108f454441a4/New%20HD%20logo%20light%20mode%20SMALL.png'
+    : 'https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/642ae13033cc910845d4c55052cd108f454441a4/New%20HD%20logo%20dark%20mode%20SMALL.png';
 
   const footerLogoSrc = mounted && theme === 'light'
-    ? 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698cab618b14d7dafc7e8318/c3e65bfed_SmallPNGDarkmode.png'
-    : 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698cab618b14d7dafc7e8318/aa7e74a04_SmallPNGLightmode.png';
+    ? 'https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/642ae13033cc910845d4c55052cd108f454441a4/New%20HD%20logo%20dark%20mode%20SMALL.png'
+    : 'https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/642ae13033cc910845d4c55052cd108f454441a4/New%20HD%20logo%20light%20mode%20SMALL.png';
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950">
