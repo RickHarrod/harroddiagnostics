@@ -7,16 +7,18 @@ const pricingTiers = [
   {
     name: "Domestic",
     description: "For residential solar installations",
-    originalPrice: "120",
-    price: "99",
+    originalPrice: "99",
+    price: "49",
     unit: "up to 10 panels",
     features: [
-      "+£10 per 4 panels above 10",
+      "Summer Sale: 50% off",
+      "+£5 per 4 panels above 10 (normally £10)",
       "Maximum 50 panels",
       "Drone thermal survey",
       "Visual inspection",
       "Hotspot detection",
       "Summary report",
+      "Optional inverter safety inspection: £30",
       "5 business day turnaround"
     ],
     popular: false
@@ -24,16 +26,18 @@ const pricingTiers = [
   {
     name: "Commercial",
     description: "For commercial rooftop systems",
-    originalPrice: "210",
-    price: "199",
-    unit: "from 51 panels",
+    originalPrice: "199",
+    price: "99",
+    unit: "up to 50 panels",
     features: [
-      "+£10 per 10 panels above 51",
+      "Summer Sale: 50% off",
+      "+£5 per 10 panels above 50 (normally £10)",
       "Full thermal survey",
       "Fault classification",
       "String-level analysis",
       "Engineering report",
       "Corrective recommendations",
+      "Optional inverter safety inspection: £30",
       "3 business day turnaround"
     ],
     popular: true
@@ -103,7 +107,7 @@ export default function Pricing() {
                     <>
                       <div className="flex items-baseline gap-2 mb-1">
                         <span className="text-slate-500 line-through text-2xl">£{tier.originalPrice}</span>
-                        <span className="text-xs text-amber-500 font-medium uppercase tracking-wide">Seasonal Offer</span>
+                        <span className="text-xs text-amber-500 font-medium uppercase tracking-wide">Summer Sale</span>
                       </div>
                       <div className="flex items-baseline gap-1">
                         <span className="text-amber-500">£</span>
