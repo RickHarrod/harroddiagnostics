@@ -62,8 +62,8 @@ export default function Pricing() {
             alt="Solar panels in warm light"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/85 to-white dark:from-slate-950/90 dark:via-slate-950/85 dark:to-slate-950" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.6)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.6)_100%)]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-white/30 to-white/20 dark:from-slate-950/40 dark:via-slate-950/30 dark:to-slate-950/20" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.15)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.15)_100%)]" />
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
