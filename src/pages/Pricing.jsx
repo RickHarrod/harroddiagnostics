@@ -15,7 +15,6 @@ const pricingTiers = [
     features: [
       "Summer Sale: 50% off",
       "+£5 per 4 panels above 10 (ex VAT)",
-      "+£6 per 4 panels above 10 (inc VAT)",
       "Maximum 50 panels",
       "Drone thermal survey",
       "Visual inspection",
@@ -37,7 +36,6 @@ const pricingTiers = [
     features: [
       "Summer Sale: 50% off",
       "+£5 per 10 panels above 50 (ex VAT)",
-      "+£6 per 10 panels above 50 (inc VAT)",
       "Full thermal survey",
       "Fault classification",
       "String-level analysis",
@@ -51,7 +49,7 @@ const pricingTiers = [
 ];
 
 export default function Pricing() {
-  const [showVAT, setShowVAT] = React.useState(true);
+  const [showVAT, setShowVAT] = React.useState(false);
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950 pt-24">
@@ -60,7 +58,7 @@ export default function Pricing() {
       <section className="py-24 px-6 relative overflow-hidden">
         <div className="absolute inset-0">
           <img 
-            src="https://images.unsplash.com/photo-1558449028-b53a39d100fc?w=1920&q=80" 
+            src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/DJI_20260318163338_0007_V%20-%20Edited%202.jpg" 
             alt="Solar panels in warm light"
             className="w-full h-full object-cover"
           />
@@ -74,7 +72,7 @@ export default function Pricing() {
           </p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-slate-900 dark:text-white mb-8">
             Transparent pricing<br />
-            <span className="text-slate-600 dark:text-slate-400">no hidden costs</span>
+            <span className="text-slate-600 dark:text-slate-400">fair and flexible</span>
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
             Clear, upfront pricing for all system sizes. Every survey includes 
@@ -125,13 +123,13 @@ export default function Pricing() {
                   </div>
                 )}
 
-                {tier.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                    <span className="px-4 py-1.5 bg-amber-500 text-slate-950 text-sm font-medium rounded-full">
-                      Most Popular
-                    </span>
-                  </div>
-                )}
+                {/* {tier.popular && (
+  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+    <span className="px-4 py-1.5 bg-amber-500 text-slate-950 text-sm font-medium rounded-full">
+      Most Popular
+    </span>
+  </div>
+)} */}
                 
                 <div className="mb-8">
                   <h3 className="text-2xl font-medium text-slate-900 dark:text-white mb-2">{tier.name}</h3>
