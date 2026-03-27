@@ -126,42 +126,72 @@ export default function Services() {
       </section>
 
       {/* Process */}
-      <section className="py-32 px-6 bg-white dark:bg-slate-950 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=1920&q=80" 
-            alt="Modern home with solar"
-            className="w-full h-full object-cover opacity-10"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-white via-white/95 to-white dark:from-slate-950 dark:via-slate-950/95 dark:to-slate-950" />
-        </div>
+<section className="py-32 px-6 bg-white dark:bg-slate-950 relative overflow-hidden">
+  <div className="absolute inset-0">
+    <img 
+      src="https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=1920&q=80" 
+      alt="Modern home with solar"
+      className="w-full h-full object-cover opacity-30"
+    />
 
-        <div className="max-w-5xl mx-auto relative z-10">
-          <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">
-              How it works
-            </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
-              A streamlined process from booking to report delivery.
-            </p>
+    {/* Softer gradient so the image shows through */}
+    <div className="absolute inset-0 bg-gradient-to-b 
+      from-white/60 via-white/50 to-white/40
+      dark:from-slate-950/60 dark:via-slate-950/50 dark:to-slate-950/40" 
+    />
+  </div>
+
+  <div className="max-w-5xl mx-auto relative z-10">
+    <div className="text-center mb-20">
+      <h2 className="text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">
+        How it works
+      </h2>
+      <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
+        A streamlined process from booking to report delivery.
+      </p>
+    </div>
+
+    <div className="grid md:grid-cols-4 gap-8">
+      {[
+        { step: "01", title: "Book", desc: "Request a survey and provide site details" },
+        { step: "02", title: "Survey", desc: "We conduct the drone thermal inspection" },
+        { step: "03", title: "Analysis", desc: "Data processing and fault classification" },
+        { step: "04", title: "Report", desc: "Receive your comprehensive report" }
+      ].map((item) => (
+        
+        /* Combined Option 2 + Option 3 */
+        <div
+          key={item.step}
+          className="group text-center p-8 rounded-2xl 
+                     border border-gray-200 dark:border-slate-800 
+                     bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm
+                     hover:bg-white/80 dark:hover:bg-slate-900/80 
+                     hover:border-gray-300 dark:hover:border-slate-700
+                     transition-all duration-200"
+        >
+          {/* Circular step badge */}
+          <div className="w-16 h-16 mx-auto mb-6 rounded-full 
+                          bg-amber-500/15 dark:bg-amber-500/10 
+                          flex items-center justify-center
+                          text-2xl font-light text-amber-600 dark:text-amber-400
+                          group-hover:bg-amber-500/25 dark:group-hover:bg-amber-500/20
+                          transition-all duration-200">
+            {item.step}
           </div>
 
-          <div className="grid md:grid-cols-4 gap-8">
-            {[
-              { step: "01", title: "Book", desc: "Request a survey and provide site details" },
-              { step: "02", title: "Survey", desc: "We conduct the drone thermal inspection" },
-              { step: "03", title: "Analysis", desc: "Data processing and fault classification" },
-              { step: "04", title: "Report", desc: "Receive your comprehensive report" }
-            ].map((item) => (
-              <div key={item.step} className="text-center">
-                <div className="text-5xl font-light text-amber-500/30 mb-4">{item.step}</div>
-                <h3 className="text-xl font-medium text-slate-900 dark:text-white mb-2">{item.title}</h3>
-                <p className="text-slate-500 dark:text-slate-500">{item.desc}</p>
-              </div>
-            ))}
-          </div>
+          <h3 className="text-xl font-medium text-slate-900 dark:text-white mb-2">
+            {item.title}
+          </h3>
+
+          <p className="text-slate-600 dark:text-slate-400">
+            {item.desc}
+          </p>
         </div>
-      </section>
+
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* CTA */}
       <section className="py-24 px-6 bg-gradient-to-t from-gray-50 to-white dark:from-slate-900 dark:to-slate-950">
