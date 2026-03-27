@@ -69,17 +69,17 @@ export default function Services() {
     className="w-full h-full object-cover"
   />
 
-  {/* Mid-strength gradient overlay */}
-  <div className="absolute inset-0 bg-gradient-to-b 
-    from-white/45 via-white/35 to-white/20
-    dark:from-slate-950/45 dark:via-slate-950/35 dark:to-slate-950/20" 
-  />
+  {/* Mid‑dark gradient overlay */}
+<div className="absolute inset-0 bg-gradient-to-b 
+  from-white/55 via-white/45 to-white/30
+  dark:from-slate-950/55 dark:via-slate-950/45 dark:to-slate-950/30" 
+/>
 
-  {/* Mid-strength radial overlay */}
-  <div className="absolute inset-0 
-    bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.22)_100%)]
-    dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.22)_100%)]" 
-  />
+{/* Mid‑dark radial overlay */}
+<div className="absolute inset-0 
+  bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.28)_100%)]
+  dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.28)_100%)]" 
+/>
 </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
