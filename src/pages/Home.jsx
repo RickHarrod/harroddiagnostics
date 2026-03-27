@@ -11,16 +11,14 @@ export default function Home() {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
 
         {/* Background Video */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 min-h-screen w-full">
-            <iframe
-              className="absolute inset-0 w-auto h-full min-h-screen object-cover object-center pointer-events-none"
-              src="https://www.youtube.com/embed/4H1UDwwyGpI?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&loop=1&playlist=4H1UDwwyGpI&playsinline=1"
-              title="Background video"
-              frameBorder="0"
-              allow="autoplay; fullscreen"
-            ></iframe>
-          </div>
+        <div className="absolute inset-0">
+          <iframe
+            className="w-full h-full object-cover object-center pointer-events-none"
+            src="https://www.youtube.com/embed/4H1UDwwyGpI?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&loop=1&playlist=4H1UDwwyGpI&playsinline=1"
+            title="Background video"
+            frameBorder="0"
+            allow="autoplay; fullscreen"
+          ></iframe>
 
           {/* Mid‑dark gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-b 
@@ -56,7 +54,7 @@ export default function Home() {
             Identify faults
           </h1>
 
-          <h2 className="backdrop-blur-sm bg-white/20 dark:bg-slate-900/20 rounded-xl px-5 py-2 inline-block text-2xl md:text-3xl lg:text-4xl font-light text-slate-700 dark:text-slate-300 mb-8">
+          <h2 className="backdrop-blur-sm bg-white/20 dark:bg-slate-900/20 rounded-xl px-5 py-2 inline-block text-slate-600 dark:text-slate-400 text-2xl md:text-3xl lg:text-4xl font-light mb-8">
             before they become failures
           </h2>
 
