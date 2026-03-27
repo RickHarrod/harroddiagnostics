@@ -58,9 +58,27 @@ export default function Contact() {
       <section className="py-24 px-6 relative overflow-hidden">
         {/* Background image */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/85 to-white dark:from-slate-950/90 dark:via-slate-950/85 dark:to-slate-950" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.6)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.5)_100%)]" />
-        </div>
+
+  {/* Background image */}
+  <div 
+    className="absolute inset-0 
+    bg-[url('https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Solar%20garage%20HQ.jpg')] 
+    bg-cover bg-center"
+  />
+
+  {/* Linear gradient overlay (your saved settings) */}
+  <div className="absolute inset-0 bg-gradient-to-b 
+    from-white/65 via-white/55 to-white/40
+    dark:from-slate-950/65 dark:via-slate-950/55 dark:to-slate-950/40" 
+  />
+
+  {/* Radial overlay (your saved settings) */}
+  <div className="absolute inset-0 
+    bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.35)_100%)]
+    dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.35)_100%)]" 
+  />
+
+</div>
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <div>
             <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-sm mb-6">
@@ -216,16 +234,19 @@ export default function Contact() {
                   </div>
 
                   <div className="mb-8 space-y-2">
-                    <Label htmlFor="message" className="text-slate-700 dark:text-slate-300">Message *</Label>
-                    <Textarea
-                      id="message"
-                      value={formData.message}
-                      onChange={(e) => setFormData({...formData, message: e.target.value})}
-                      required
-                      rows={5}
-                      className="bg-white dark:bg-slate-950 border-gray-300 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-amber-500 resize-none"
-                      placeholder="Tell us about your inspection needs..."
-                    />
+                  <Label htmlFor="message" className="text-slate-700 dark:text-slate-300">
+  Address & Message *
+</Label>
+
+<Textarea
+  id="message"
+  value={formData.message}
+  onChange={(e) => setFormData({...formData, message: e.target.value})}
+  required
+  rows={5}
+  className="bg-white dark:bg-slate-950 border-gray-300 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-amber-500 resize-none"
+  placeholder="Include the system address and a brief description of your installation or any issues you're experiencing."
+/>
                   </div>
 
                   <Button
