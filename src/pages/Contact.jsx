@@ -62,7 +62,7 @@ export default function Contact() {
   {/* Background image */}
   <div 
     className="absolute inset-0 
-    bg-[url('https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Solar%20garage%20HQ.jpg')] 
+    bg-[url('https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Solar%20garage%20wide.jpg')] 
     bg-cover bg-center"
   />
 
