@@ -16,13 +16,8 @@ export default function Home() {
             alt="Solar panels on modern home"
             className="w-full h-full object-cover"
           />
-          {/* Dark overlay */}
-          {/* Dark overlay with warm tint */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/70 to-white/90 dark:from-slate-950/80 dark:via-slate-950/70 dark:to-slate-950/90" />
-          {/* Vignette effect */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.7)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.7)_100%)]" />
-          {/* Warm accent glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-r from-orange-500/10 via-amber-500/5 to-red-500/10 blur-[120px]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/65 via-white/55 to-white/40 dark:from-slate-950/65 dark:via-slate-950/55 dark:to-slate-950/40" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.35)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.35)_100%)]" />
         </div>
         
         {/* Grid overlay */}
