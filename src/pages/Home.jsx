@@ -11,14 +11,16 @@ export default function Home() {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
 
         {/* Background Video */}
-        <div className="absolute inset-0">
-          <iframe
-            className="w-full h-full object-cover pointer-events-none"
-            src="https://www.youtube.com/embed/4H1UDwwyGpI?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&loop=1&playlist=4H1UDwwyGpI&playsinline=1"
-            title="Background video"
-            frameBorder="0"
-            allow="autoplay; fullscreen"
-          ></iframe>
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 min-h-screen w-full">
+            <iframe
+              className="absolute inset-0 w-auto h-full min-h-screen object-cover object-center pointer-events-none"
+              src="https://www.youtube.com/embed/4H1UDwwyGpI?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&loop=1&playlist=4H1UDwwyGpI&playsinline=1"
+              title="Background video"
+              frameBorder="0"
+              allow="autoplay; fullscreen"
+            ></iframe>
+          </div>
 
           {/* Mid‑dark gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-b 
@@ -45,16 +47,20 @@ export default function Home() {
 
         {/* Hero Content */}
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-20 md:pt-0">
+
           <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-sm mb-8">
             Independent Solar PV Thermal Surveys
           </p>
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-light text-slate-900 dark:text-white leading-tight mb-8">
+          <h1 className="backdrop-blur-sm bg-white/20 dark:bg-slate-900/20 rounded-xl px-6 py-3 inline-block text-4xl md:text-6xl lg:text-7xl font-light text-slate-900 dark:text-white leading-tight mb-4">
             Identify faults
-            <span className="block text-slate-600 dark:text-slate-400">before they become failures</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
+          <h2 className="backdrop-blur-sm bg-white/20 dark:bg-slate-900/20 rounded-xl px-5 py-2 inline-block text-2xl md:text-3xl lg:text-4xl font-light text-slate-700 dark:text-slate-300 mb-8">
+            before they become failures
+          </h2>
+
+          <p className="backdrop-blur-sm bg-white/20 dark:bg-slate-900/20 rounded-xl px-5 py-3 inline-block text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
             Engineering grade drone thermal surveys for solar PV systems. 
             Compliant with IEC TS 62446-3. Objective diagnostics. Clear reports.
           </p>
