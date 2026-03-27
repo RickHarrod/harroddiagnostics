@@ -76,7 +76,7 @@ export default function SampleReport() {
         {/* Background image */}
         <div className="absolute inset-0">
           <img 
-            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1920&q=80" 
+            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698cab618b14d7dafc7e8318/4b08a0178_edited-photo-5.png" 
             alt="Solar array"
             className="w-full h-full object-cover"
           />
@@ -223,14 +223,14 @@ export default function SampleReport() {
           {/* Thermal Image */}
           <div className="aspect-video rounded-2xl overflow-hidden border border-gray-200 dark:border-slate-800 relative">
             <img 
-              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698cab618b14d7dafc7e8318/4b08a0178_edited-photo-5.png"
+              src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Harrod%20thermal%20defect%20sample.jpg"
               alt="Thermal capture with identified hotspots"
               className="w-full h-full object-cover"
             />
             
             {/* Label */}
             <div className="absolute bottom-6 left-6 bg-black/50 backdrop-blur px-4 py-2 rounded-lg">
-              <p className="text-white text-sm">Example thermal capture with identified hotspots</p>
+              <p className="text-white text-sm">Example thermal capture with identified defects</p>
             </div>
           </div>
         </div>
