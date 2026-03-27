@@ -8,21 +8,51 @@ export default function Home() {
     <div className="min-h-screen bg-white dark:bg-slate-950">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1920&q=80" 
-            alt="Solar panels on modern home"
-            className="w-full h-full object-cover"
-          />
-          {/* Dark overlay */}
-          {/* Dark overlay with warm tint */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/70 to-white/90 dark:from-slate-950/80 dark:via-slate-950/70 dark:to-slate-950/90" />
-          {/* Vignette effect */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.7)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.7)_100%)]" />
-          {/* Warm accent glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-r from-orange-500/10 via-amber-500/5 to-red-500/10 blur-[120px]" />
-        </div>
+  {/* Background Video */}
+  <div className="absolute inset-0">
+    <iframe
+      className="w-full h-full object-cover pointer-events-none"
+      src="https://www.youtube.com/embed/4H1UDwwyGpI?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&loop=1&playlist=4H1UDwwyGpI&playsinline=1"
+      title="Background video"
+      frameBorder="0"
+      allow="autoplay; fullscreen"
+    ></iframe>
+
+    {/* Mid‑dark gradient overlay (matches Services page) */}
+    <div className="absolute inset-0 bg-gradient-to-b 
+      from-white/55 via-white/45 to-white/30
+      dark:from-slate-950/55 dark:via-slate-950/45 dark:to-slate-950/30" 
+    />
+
+    {/* Mid‑dark radial overlay (matches Services page) */}
+    <div className="absolute inset-0 
+      bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.28)_100%)]
+      dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.28)_100%)]" 
+    />
+
+    {/* Warm accent glow */}
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
+      w-[800px] h-[800px] rounded-full 
+      bg-gradient-to-r from-orange-500/10 via-amber-500/5 to-red-500/10 
+      blur-[120px]" 
+    />
+  </div>
+
+  {/* Grid overlay */}
+  <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
+
+  {/* Your existing hero content stays untouched */}
+  <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-20 md:pt-0">
+    {/* ...all your existing text/buttons remain here ... */}
+  </div>
+
+  {/* Scroll indicator */}
+  <div className="absolute bottom-12 left-1/2 -translate-x-1/2 hidden md:flex">
+    <div className="w-6 h-10 border-2 border-gray-300 dark:border-slate-700 rounded-full flex justify-center pt-2">
+      <div className="w-1 h-2 bg-gray-400 dark:bg-slate-500 rounded-full" />
+    </div>
+  </div>
+</section>
         
         {/* Grid overlay */}
         {/* Grid overlay */}
