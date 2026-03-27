@@ -114,9 +114,6 @@ export default function About() {
           </div>
         </div>
       </section>
-    </div>
-  );
-}
 
       {/* Values */}
       <section className="py-32 px-6 bg-white dark:bg-slate-950 relative overflow-hidden">
@@ -195,6 +192,7 @@ export default function About() {
           </Link>
         </div>
       </section>
+
     </div>
   );
 }
