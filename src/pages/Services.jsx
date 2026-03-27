@@ -69,16 +69,16 @@ export default function Services() {
     className="w-full h-full object-cover"
   />
 
-  {/* Lighter gradient so the image shows through */}
+  {/* Mid-strength gradient overlay */}
   <div className="absolute inset-0 bg-gradient-to-b 
-    from-white/25 via-white/15 to-white/5
-    dark:from-slate-950/25 dark:via-slate-950/15 dark:to-slate-950/5" 
+    from-white/45 via-white/35 to-white/20
+    dark:from-slate-950/45 dark:via-slate-950/35 dark:to-slate-950/20" 
   />
 
-  {/* Softer radial overlay */}
+  {/* Mid-strength radial overlay */}
   <div className="absolute inset-0 
-    bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.15)_100%)]
-    dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.15)_100%)]" 
+    bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.22)_100%)]
+    dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.22)_100%)]" 
   />
 </div>
 
