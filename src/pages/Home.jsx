@@ -51,12 +51,12 @@ export default function Home() {
           </p>
 
           <h1 className="backdrop-blur-sm bg-white/20 dark:bg-slate-900/20 rounded-xl px-6 py-3 inline-block text-4xl md:text-6xl lg:text-7xl font-light text-slate-900 dark:text-white leading-tight mb-4">
-            Identify faults
-          </h1>
+  Identify faults
+</h1>
 
-          <h2 className="backdrop-blur-sm bg-white/20 dark:bg-slate-900/20 rounded-xl px-5 py-2 inline-block text-slate-600 dark:text-slate-400 text-2xl md:text-3xl lg:text-4xl font-light mb-8">
-            before they become failures
-          </h2>
+<h2 className="backdrop-blur-sm bg-white/20 dark:bg-slate-900/20 rounded-xl px-5 py-2 inline-block text-slate-600 dark:text-slate-400 text-2xl md:text-3xl lg:text-4xl font-light mb-8">
+  before they become failures
+</h2>
 
           <p className="backdrop-blur-sm bg-white/20 dark:bg-slate-900/20 rounded-xl px-5 py-3 inline-block text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
             Engineering grade drone thermal surveys for solar PV systems. 
