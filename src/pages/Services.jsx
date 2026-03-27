@@ -62,19 +62,25 @@ export default function Services() {
 
       {/* Hero */}
       <section className="py-24 px-6 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <img 
-            src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Drone%20flight%20.jpg" 
-            alt="Solar panels at sunset"
-            className="w-full h-full object-cover"
-          />
+      <div className="absolute inset-0">
+  <img 
+    src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Drone%20flight%20.jpg" 
+    alt="Solar panels at sunset"
+    className="w-full h-full object-cover"
+  />
 
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/85 to-white dark:from-slate-950/90 dark:via-slate-950/85 dark:to-slate-950" />
+  {/* Lighter gradient so the image shows through */}
+  <div className="absolute inset-0 bg-gradient-to-b 
+    from-white/25 via-white/15 to-white/5
+    dark:from-slate-950/25 dark:via-slate-950/15 dark:to-slate-950/5" 
+  />
 
-          {/* Radial overlay */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.6)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.6)_100%)]" />
-        </div>
+  {/* Softer radial overlay */}
+  <div className="absolute inset-0 
+    bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.15)_100%)]
+    dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.15)_100%)]" 
+  />
+</div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-sm mb-6">
