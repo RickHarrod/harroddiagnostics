@@ -24,53 +24,54 @@ const values = [
 export default function About() {
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950 pt-24">
-  {/* Hero */}
-  <section className="py-24 px-6 relative overflow-hidden">
-    {/* Background image */}
-    <div className="absolute inset-0">
-      <img 
-        src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Solar%20Field%20home%20page.jpg" 
-        alt="Solar Field"
-        className="w-full h-full object-cover"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b 
-        from-white/65 via-white/55 to-white/40 
-        dark:from-slate-950/65 dark:via-slate-950/55 dark:to-slate-950/40" 
-      />
-      <div className="absolute inset-0 
-        bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.35)_100%)]
-        dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.35)_100%)]" 
-      />
-    </div>
 
-    {/* Foreground content */}
-    <div className="max-w-4xl mx-auto relative z-10">
-      <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-10">
-        
-        {/* Text */}
-        <div className="flex-1">
-          <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-sm mb-6">
-            About Harrod Diagnostics
-          </p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-slate-900 dark:text-white mb-8 leading-tight">
-            Independent diagnostics.<br />
-            <span className="text-slate-600 dark:text-slate-400">
-              Engineering‑grade insight.<br />
-              No upselling. No bias.
-            </span>
-          </h1>
+      {/* Hero */}
+      <section className="py-24 px-6 relative overflow-hidden">
+
+        {/* Background image */}
+        <div className="absolute inset-0">
+          <img 
+            src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Solar%20Field%20home%20page.jpg" 
+            alt="Solar Field"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b 
+            from-white/65 via-white/55 to-white/40 
+            dark:from-slate-950/65 dark:via-slate-950/55 dark:to-slate-950/40" 
+          />
+          <div className="absolute inset-0 
+            bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.35)_100%)]
+            dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.35)_100%)]" 
+          />
         </div>
 
-        {/* Founder Photo */}
-        <img
-          src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Rick%20Harrod%20Diagnostics.jpg"
-          alt="Ricky Harrod"
-          className="w-56 md:w-64 lg:w-72 rounded-xl shadow-xl object-cover border border-white/20 dark:border-slate-800/40"
-        />
-      </div>
-    </div>
-  </section>
-</div>
+        {/* Foreground content */}
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-10">
+
+            {/* Text */}
+            <div className="flex-1">
+              <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-sm mb-6">
+                About Harrod Diagnostics
+              </p>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-slate-900 dark:text-white mb-8 leading-tight">
+                Independent diagnostics.<br />
+                <span className="text-slate-600 dark:text-slate-400">
+                  Engineering‑grade insight.<br />
+                  No upselling. No bias.
+                </span>
+              </h1>
+            </div>
+
+            {/* Founder Photo */}
+            <img
+              src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Rick%20Harrod%20Diagnostics.jpg"
+              alt="Ricky Harrod"
+              className="w-56 md:w-64 lg:w-72 rounded-xl shadow-xl object-cover border border-white/20 dark:border-slate-800/40"
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Story */}
       <section className="py-16 px-6 bg-gray-50 dark:bg-slate-900">
@@ -84,7 +85,6 @@ export default function About() {
               The business began with a personal frustration. After installing a large solar array on my own home, I noticed behaviour that didn't look right, panels shedding snow unevenly and patterns that hinted at possible hotspots or underperforming modules. Remote monitoring showed "no issues," and I was advised to wait a year to see if production dipped below forecast. For most homeowners, that's the end of the road: uncertainty, doubt, and no practical way to challenge a warranty claim.
             </p>
 
-            {/* UPDATED PARAGRAPH HERE */}
             <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
               My background in operations and data‑driven decision‑making meant guesswork wasn’t an option — I needed objective evidence. Thermal imaging provided it. What started as an investigation into my own system quickly expanded to family and friends, where I found more faults than expected. It became clear that domestic customers were underserved, thermographic surveys were priced for utility scale plants, and the few domestic services available were often prohibitively expensive.
             </p>
@@ -114,6 +114,9 @@ export default function About() {
           </div>
         </div>
       </section>
+    </div>
+  );
+}
 
       {/* Values */}
       <section className="py-32 px-6 bg-white dark:bg-slate-950 relative overflow-hidden">
