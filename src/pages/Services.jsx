@@ -1,199 +1,428 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
-import { 
-  Scan, 
-  Eye, 
-  Flame, 
-  AlertTriangle, 
-  BarChart3, 
-  FileText, 
-  Wrench, 
+import {
+  Scan,
+  Eye,
+  Flame,
+  AlertTriangle,
+  BarChart3,
+  FileText,
+  Wrench,
   Shield,
-  ArrowRight
+  Home,
+  Key,
+  Building2,
+  ChevronDown,
+  ArrowRight,
+  CheckCircle2
 } from 'lucide-react';
 
-const services = [
+// ─── Shared service definitions ───────────────────────────────────────────────
+
+const THERMAL_SURVEY = {
+  icon: Scan,
+  title: 'Full Thermal Imaging Survey',
+  intro: "The core diagnostic service that reveals hidden faults your monitoring app can't see.",
+  description:
+    'High‑resolution infrared imaging of your entire solar array to detect hotspots, string issues, PID, bypass diode failures, and other thermal anomalies that silently reduce performance or pose safety risks.',
+  bullets: [
+    'Detects hotspots invisible to monitoring apps',
+    'Identifies early‑stage faults before they become expensive',
+    'Highlights safety‑related thermal anomalies',
+    'Provides a baseline for long‑term system health',
+    'Helps validate installer workmanship',
+  ],
+};
+
+const VISUAL_INSPECTION = {
+  icon: Eye,
+  title: 'Daylight Visual Inspection',
+  intro: "A clear, ground‑truth assessment of your system's physical condition.",
+  description:
+    'High‑quality daylight imaging to identify cracked modules, shading problems, contamination, loose fixings, and installation defects that affect performance or safety.',
+  bullets: [
+    'Identifies cracked or delaminated modules',
+    'Checks for shading, debris, or contamination',
+    'Confirms mounting hardware is secure',
+    'Spots cable abrasion or UV damage',
+    'Verifies general installation quality',
+  ],
+};
+
+const FAULT_ID = {
+  icon: AlertTriangle,
+  title: 'Fault Identification & Classification',
+  intro: 'Independent diagnosis of any issues found, explained in plain English.',
+  description:
+    'Every defect is categorised by type and severity using IEC TS 62446‑3 guidance, giving you a clear understanding of what's wrong, how serious it is, and what it means for your system.',
+  bullets: [
+    'Categorises faults using IEC TS 62446‑3',
+    'Distinguishes minor issues from critical ones',
+    'Helps you prioritise repairs',
+    'Provides clarity on root causes',
+    'Supports warranty or installer discussions',
+  ],
+};
+
+const THERMAL_PERFORMANCE = {
+  icon: BarChart3,
+  title: 'Thermal Performance Assessment',
+  intro: 'Reveals underperforming sections of your system and the likely causes.',
+  description:
+    'Thermal patterns highlight areas running hotter, cooler, or unevenly — often indicating hidden faults, energy loss, or early‑stage degradation long before they appear in monitoring data.',
+  bullets: [
+    'Highlights underperforming sections of the array',
+    'Reveals mismatch, degradation, or bypass diode issues',
+    'Shows thermal imbalance across modules',
+    'Helps explain unexpected drops in generation',
+    'Provides actionable insights to improve yield',
+  ],
+};
+
+const ENGINEERING_REPORT = {
+  icon: FileText,
+  title: 'Engineering‑Grade Diagnostic Report',
+  intro: "A clear, professional record of your system's condition.",
+  description:
+    "You receive a structured report with thermal imagery, defect maps, severity ratings, and technical findings — written in a way homeowners can understand and installers can't dispute.",
+  bullets: [
+    'Includes thermal imagery and defect maps',
+    'Provides severity ratings and technical notes',
+    'Written in clear, non‑technical language',
+    'Suitable for installers, insurers, and warranty teams',
+    'Acts as a long‑term record of system condition',
+  ],
+};
+
+const CORRECTIVE = {
+  icon: Wrench,
+  title: 'Corrective Action Recommendations',
+  intro: 'Independent guidance on what to fix, who can fix it, and what to prioritise.',
+  description:
+    'You get practical, unbiased advice on repairs, replacements, and maintenance, helping you avoid unnecessary work and focus on what genuinely improves performance or safety.',
+  bullets: [
+    'Prioritised list of what to fix first',
+    'Independent guidance with no sales agenda',
+    'Helps avoid unnecessary or upsold work',
+    'Suggests who is best placed to carry out repairs',
+    'Includes expected impact on performance or safety',
+  ],
+};
+
+const WARRANTY = {
+  icon: Shield,
+  title: 'Warranty & Insurance Evidence Pack',
+  intro: 'Documentation that strengthens your position in claims, disputes, or assessments.',
+  description:
+    'Independent thermal evidence and written findings suitable for warranty claims, installer accountability, insurance assessments, and long‑term system records.',
+  bullets: [
+    'Provides independent proof of system condition',
+    'Supports claims for defective modules or workmanship',
+    'Helps resolve disputes with installers',
+    'Meets insurer expectations for documentation',
+    'Reduces the risk of claim rejection',
+  ],
+};
+
+// ─── Category data ─────────────────────────────────────────────────────────────
+
+const categories = [
   {
-    icon: Scan,
-    title: "Drone Thermal Survey",
-    description: "High-resolution aerial thermal imaging of your entire solar installation using calibrated radiometric sensors."
+    id: 'homeowner',
+    label: 'Homeowner',
+    icon: Home,
+    services: [
+      THERMAL_SURVEY,
+      VISUAL_INSPECTION,
+      FAULT_ID,
+      THERMAL_PERFORMANCE,
+      ENGINEERING_REPORT,
+      CORRECTIVE,
+      WARRANTY,
+    ],
   },
   {
-    icon: Eye,
-    title: "Visual Inspection",
-    description: "Comprehensive visual assessment to identify physical damage, soiling, and installation defects."
+    id: 'homebuyer',
+    label: 'Homebuyer / Seller',
+    icon: Key,
+    services: [
+      {
+        icon: Scan,
+        title: 'Pre‑Purchase Solar System Assessment',
+        intro: "Know exactly what you're buying before you commit.",
+        description:
+          "Most surveys don't check solar. This assessment reveals hidden defects, safety issues, and performance problems so you can negotiate confidently and avoid costly surprises.",
+        bullets: [
+          'Reveals hidden faults before you commit',
+          'Helps negotiate price based on system condition',
+          'Identifies safety issues missed by surveyors',
+          'Confirms whether the system is performing as expected',
+          'Provides clarity on future maintenance needs',
+        ],
+      },
+      {
+        icon: Home,
+        title: 'Post‑Purchase PV Health Check',
+        intro: 'A full safety and performance check for new homeowners.',
+        description:
+          "If you've just moved in, this gives you a clear baseline of system condition, highlights any hidden issues, and ensures your solar is safe and working as expected.",
+        bullets: [
+          'Ensures the system you inherited is safe',
+          "Highlights any issues the seller didn't disclose",
+          'Establishes a baseline for future performance',
+          'Identifies faults that may affect warranties',
+          'Gives peace of mind in your new home',
+        ],
+      },
+      {
+        icon: FileText,
+        title: "Seller's PV Condition Report",
+        intro: 'Build buyer confidence with independent proof your system is healthy.',
+        description:
+          'A professional diagnostic report that helps your property listing stand out and reassures buyers that the solar system is safe, functional, and well‑maintained.',
+        bullets: [
+          'Builds buyer confidence in your listing',
+          'Demonstrates transparency and good maintenance',
+          'Helps justify asking price',
+          'Reduces buyer objections or renegotiations',
+          'Provides a professional document to share with agents',
+        ],
+      },
+      THERMAL_SURVEY,
+      VISUAL_INSPECTION,
+    ],
   },
   {
-    icon: Flame,
-    title: "Hotspot Detection",
-    description: "Precise identification of thermal anomalies indicating cell failures, bypass diode issues, or connection problems."
+    id: 'landlord',
+    label: 'Landlord / Business Owner',
+    icon: Building2,
+    services: [
+      {
+        icon: Shield,
+        title: 'Liability & Compliance Assurance Survey',
+        intro: 'A proactive safety and compliance check designed for landlords and business owners.',
+        description:
+          'Thermal imaging identifies hidden faults that could pose electrical or fire risks, helping you demonstrate due diligence, meet insurance expectations, and protect tenants or staff. While the risk of serious issues is low, insurers increasingly expect evidence that solar systems are safe, functional, and regularly assessed.',
+        bullets: [
+          'Demonstrates due diligence for tenant or staff safety',
+          'Identifies thermal faults that could pose fire risk',
+          'Helps meet insurer expectations for evidence',
+          'Supports compliance with electrical safety obligations',
+          'Reduces exposure to liability claims',
+        ],
+      },
+      THERMAL_SURVEY,
+      FAULT_ID,
+      THERMAL_PERFORMANCE,
+      ENGINEERING_REPORT,
+      CORRECTIVE,
+      WARRANTY,
+    ],
   },
-  {
-    icon: AlertTriangle,
-    title: "Fault Classification",
-    description: "Systematic categorisation of defects by type and severity following IEC TS 62446-3 guidelines."
-  },
-  {
-    icon: BarChart3,
-    title: "String-Level Analysis",
-    description: "Performance assessment at string level to identify underperforming sections and potential causes."
-  },
-  {
-    icon: FileText,
-    title: "Engineering Report",
-    description: "Comprehensive documentation with thermal imagery, fault maps, and detailed technical findings."
-  },
-  {
-    icon: Wrench,
-    title: "Corrective Recommendations",
-    description: "Actionable guidance on repairs, replacements, and maintenance priorities based on findings."
-  },
-  {
-    icon: Shield,
-    title: "Warranty & Insurance Evidence",
-    description: "Independent documentation suitable for warranty claims, insurance assessments, and dispute resolution."
-  }
 ];
 
+// ─── Expandable Service Card ───────────────────────────────────────────────────
+
+function ServiceCard({ service, index }) {
+  const [open, setOpen] = useState(false);
+  const bodyRef = useRef(null);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    if (bodyRef.current) {
+      setHeight(open ? bodyRef.current.scrollHeight : 0);
+    }
+  }, [open]);
+
+  const Icon = service.icon;
+
+  return (
+    <div
+      className="group bg-white dark:bg-slate-950 rounded-2xl border border-gray-200 dark:border-slate-800 hover:border-gray-300 dark:hover:border-slate-700 transition-all duration-200 overflow-hidden"
+      style={{ animationDelay: `${index * 60}ms` }}
+    >
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full text-left p-8 flex items-start gap-6"
+        aria-expanded={open}
+      >
+        {/* Icon */}
+        <div className="w-14 h-14 shrink-0 rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-500/10 flex items-center justify-center group-hover:from-amber-500/30 group-hover:to-orange-500/20 transition-all duration-200">
+          <Icon className="w-6 h-6 text-amber-500" />
+        </div>
+
+        {/* Text */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-xs font-medium tracking-widest uppercase text-amber-500 mb-1">
+                {service.intro}
+              </p>
+              <h3 className="text-xl font-medium text-slate-900 dark:text-white">
+                {service.title}
+              </h3>
+            </div>
+            <ChevronDown
+              className="w-5 h-5 text-slate-400 shrink-0 mt-1 transition-transform duration-300"
+              style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
+            />
+          </div>
+          <p className="mt-3 text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+            {service.description}
+          </p>
+        </div>
+      </button>
+
+      {/* Expandable bullets */}
+      <div
+        ref={bodyRef}
+        style={{ height, overflow: 'hidden', transition: 'height 0.35s cubic-bezier(0.4,0,0.2,1)' }}
+      >
+        <ul className="px-8 pb-8 pl-28 space-y-2">
+          {service.bullets.map((b) => (
+            <li key={b} className="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
+              <CheckCircle2 className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+              {b}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+// ─── Main Services component ───────────────────────────────────────────────────
+
 export default function Services() {
+  const [activeTab, setActiveTab] = useState('homeowner');
+  const [animKey, setAnimKey] = useState(0);
+
+  function handleTabChange(id) {
+    if (id === activeTab) return;
+    setActiveTab(id);
+    setAnimKey((k) => k + 1);
+  }
+
+  const current = categories.find((c) => c.id === activeTab);
+
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950 pt-24">
 
-      {/* Hero */}
+      {/* ── Hero ── */}
       <section className="py-24 px-6 relative overflow-hidden">
-      <div className="absolute inset-0">
-  <img 
-    src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Drone%20flight%20wide1.jpg" 
-    alt="Solar panels at sunset"
-    className="w-full h-full object-cover"
-  />
-
-  {/* Mid‑dark gradient overlay */}
-<div className="absolute inset-0 bg-gradient-to-b 
-  from-white/55 via-white/45 to-white/30
-  dark:from-slate-950/55 dark:via-slate-950/45 dark:to-slate-950/30" 
-/>
-
-{/* Mid‑dark radial overlay */}
-<div className="absolute inset-0 
-  bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.28)_100%)]
-  dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.28)_100%)]" 
-/>
-</div>
+        <div className="absolute inset-0">
+          <img
+            src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Drone%20flight%20wide1.jpg"
+            alt="Solar panels aerial view"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/55 via-white/45 to-white/30 dark:from-slate-950/55 dark:via-slate-950/45 dark:to-slate-950/30" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.28)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.28)_100%)]" />
+        </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-sm mb-6">
             Our Services
           </p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-slate-900 dark:text-white mb-8">
-            Comprehensive thermal<br />
-            <span className="text-slate-600 dark:text-slate-400">inspection services</span>
+            Diagnostic services built<br />
+            <span className="text-slate-600 dark:text-slate-400">around your situation</span>
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            From aerial survey to final report, we provide end-to-end thermal inspection 
-            services designed to maximise the performance of your solar assets.
+            Whether you're a homeowner, buying or selling a property, or managing a rental or commercial
+            site — we offer the right thermal diagnostic for your specific needs.
           </p>
         </div>
       </section>
 
-      {/* Services Grid */}
+      {/* ── Audience Tabs + Services ── */}
       <section className="py-16 px-6 bg-gray-50 dark:bg-slate-900">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-6">
-            {services.map((service) => (
+
+          {/* Tabs */}
+          <div className="flex flex-wrap justify-center gap-3 mb-14">
+            {categories.map((cat) => {
+              const CatIcon = cat.icon;
+              const isActive = cat.id === activeTab;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => handleTabChange(cat.id)}
+                  className={`inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 ${
+                    isActive
+                      ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
+                      : 'bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 border border-gray-200 dark:border-slate-800 hover:border-gray-300 dark:hover:border-slate-600 hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                >
+                  <CatIcon className="w-4 h-4" />
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Service cards — re-keyed on tab change to trigger CSS animation */}
+          <div
+            key={animKey}
+            className="grid md:grid-cols-2 gap-6 animate-fadeSlideIn"
+            style={{
+              animation: 'fadeSlideIn 0.4s cubic-bezier(0.4,0,0.2,1) both',
+            }}
+          >
+            {current.services.map((service, i) => (
+              <ServiceCard key={service.title + activeTab} service={service} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Process ── */}
+      <section className="py-32 px-6 bg-white dark:bg-slate-950 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=1920&q=80"
+            alt="Modern home with solar"
+            className="w-full h-full object-cover opacity-30"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/50 to-white/40 dark:from-slate-950/60 dark:via-slate-950/50 dark:to-slate-950/40" />
+        </div>
+
+        <div className="max-w-5xl mx-auto relative z-10">
+          <div className="text-center mb-20">
+            <h2 className="text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">
+              How it works
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
+              A streamlined process from booking to report delivery.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-8">
+            {[
+              { step: '01', title: 'Book', desc: 'Request a survey and provide site details' },
+              { step: '02', title: 'Survey', desc: 'We conduct the drone thermal inspection' },
+              { step: '03', title: 'Analysis', desc: 'Data processing and fault classification' },
+              { step: '04', title: 'Report', desc: 'Receive your comprehensive report' },
+            ].map((item) => (
               <div
-                key={service.title}
-                className="group p-8 bg-white dark:bg-slate-950 rounded-2xl border border-gray-200 dark:border-slate-800 hover:border-gray-300 dark:hover:border-slate-700 transition-all duration-100"
+                key={item.step}
+                className="group text-center p-8 rounded-2xl border border-gray-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm hover:bg-white/80 dark:hover:bg-slate-900/80 hover:border-gray-300 dark:hover:border-slate-700 transition-all duration-200"
               >
-                <div className="flex items-start gap-6">
-                  <div className="w-14 h-14 shrink-0 rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-500/10 flex items-center justify-center group-hover:from-amber-500/30 group-hover:to-orange-500/20 transition-all duration-100">
-                    <service.icon className="w-6 h-6 text-amber-500" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-medium text-slate-900 dark:text-white mb-3">
-                      {service.title}
-                    </h3>
-                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                      {service.description}
-                    </p>
-                  </div>
+                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-amber-500/15 dark:bg-amber-500/10 flex items-center justify-center text-2xl font-light text-amber-600 dark:text-amber-400 group-hover:bg-amber-500/25 dark:group-hover:bg-amber-500/20 transition-all duration-200">
+                  {item.step}
                 </div>
+                <h3 className="text-xl font-medium text-slate-900 dark:text-white mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Process */}
-<section className="py-32 px-6 bg-white dark:bg-slate-950 relative overflow-hidden">
-  <div className="absolute inset-0">
-    <img 
-      src="https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=1920&q=80" 
-      alt="Modern home with solar"
-      className="w-full h-full object-cover opacity-30"
-    />
-
-    {/* Softer gradient so the image shows through */}
-    <div className="absolute inset-0 bg-gradient-to-b 
-      from-white/60 via-white/50 to-white/40
-      dark:from-slate-950/60 dark:via-slate-950/50 dark:to-slate-950/40" 
-    />
-  </div>
-
-  <div className="max-w-5xl mx-auto relative z-10">
-    <div className="text-center mb-20">
-      <h2 className="text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">
-        How it works
-      </h2>
-      <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
-        A streamlined process from booking to report delivery.
-      </p>
-    </div>
-
-    <div className="grid md:grid-cols-4 gap-8">
-      {[
-        { step: "01", title: "Book", desc: "Request a survey and provide site details" },
-        { step: "02", title: "Survey", desc: "We conduct the drone thermal inspection" },
-        { step: "03", title: "Analysis", desc: "Data processing and fault classification" },
-        { step: "04", title: "Report", desc: "Receive your comprehensive report" }
-      ].map((item) => (
-        
-        /* Combined Option 2 + Option 3 */
-        <div
-          key={item.step}
-          className="group text-center p-8 rounded-2xl 
-                     border border-gray-200 dark:border-slate-800 
-                     bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm
-                     hover:bg-white/80 dark:hover:bg-slate-900/80 
-                     hover:border-gray-300 dark:hover:border-slate-700
-                     transition-all duration-200"
-        >
-          {/* Circular step badge */}
-          <div className="w-16 h-16 mx-auto mb-6 rounded-full 
-                          bg-amber-500/15 dark:bg-amber-500/10 
-                          flex items-center justify-center
-                          text-2xl font-light text-amber-600 dark:text-amber-400
-                          group-hover:bg-amber-500/25 dark:group-hover:bg-amber-500/20
-                          transition-all duration-200">
-            {item.step}
-          </div>
-
-          <h3 className="text-xl font-medium text-slate-900 dark:text-white mb-2">
-            {item.title}
-          </h3>
-
-          <p className="text-slate-600 dark:text-slate-400">
-            {item.desc}
-          </p>
-        </div>
-
-      ))}
-    </div>
-  </div>
-</section>
-
-      {/* CTA */}
+      {/* ── CTA ── */}
       <section className="py-24 px-6 bg-gradient-to-t from-gray-50 to-white dark:from-slate-900 dark:to-slate-950">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">
@@ -221,6 +450,20 @@ export default function Services() {
           </div>
         </div>
       </section>
+
+      {/* Keyframe for tab-switch animation */}
+      <style>{`
+        @keyframes fadeSlideIn {
+          from {
+            opacity: 0;
+            transform: translateY(16px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
 
     </div>
   );
