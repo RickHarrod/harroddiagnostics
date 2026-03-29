@@ -144,7 +144,7 @@ const categories = [
   },
   {
     id: 'homebuyer',
-    label: 'Homebuyer / Seller',
+    label: 'Homebuyer & Home Seller',
     icon: Key,
     services: [
       {
@@ -195,7 +195,7 @@ const categories = [
   },
   {
     id: 'landlord',
-    label: 'Landlord / Business Owner',
+    label: 'Landlord & Business Owner',
     icon: Building2,
     services: [
       {
@@ -341,25 +341,30 @@ export default function Services() {
         <div className="max-w-6xl mx-auto">
 
           {/* Tabs */}
-          <div className="flex flex-wrap justify-center gap-3 mb-14">
-            {categories.map((cat) => {
-              const CatIcon = cat.icon;
-              const isActive = cat.id === activeTab;
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => handleTabChange(cat.id)}
-                  className={`inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 ${
-                    isActive
-                      ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
-                      : 'bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 border border-gray-200 dark:border-slate-800 hover:border-gray-300 dark:hover:border-slate-600 hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                >
-                  <CatIcon className="w-4 h-4" />
-                  {cat.label}
-                </button>
-              );
-            })}
+          <div className="text-center mb-10">
+            <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-xs mb-6">
+              Select your situation
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              {categories.map((cat) => {
+                const CatIcon = cat.icon;
+                const isActive = cat.id === activeTab;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => handleTabChange(cat.id)}
+                    className={`inline-flex items-center gap-3 px-8 py-4 rounded-full text-base font-medium transition-all duration-200 ${
+                      isActive
+                        ? 'bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/25 scale-105'
+                        : 'bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 border border-gray-200 dark:border-slate-800 hover:border-amber-500/50 dark:hover:border-amber-500/50 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    <CatIcon className="w-5 h-5" />
+                    {cat.label}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           {/* Service cards — re-keyed on tab change to trigger CSS animation */}
