@@ -109,6 +109,7 @@ const SERVICE_DEFINITIONS = {
       ]
     }
   ],
+
   homebuyer: [
     {
       icon: Home,
@@ -176,6 +177,7 @@ const SERVICE_DEFINITIONS = {
       ]
     }
   ],
+
   landlord: [
     {
       icon: Briefcase,
@@ -279,7 +281,7 @@ const TABS = [
 
 export default function Services() {
   const [activeTab, setActiveTab] = useState('homeowner');
-  const [expanded, setExpanded] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState(null);
 
   const services = SERVICE_DEFINITIONS[activeTab];
 
@@ -415,7 +417,7 @@ export default function Services() {
       {/* Process */}
       <section className="py-32 px-6 bg-white dark:bg-slate-950 relative overflow-hidden">
         <div className="absolute inset-0">
-          <img 
+          <img
             src="https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=1920&q=80" 
             alt="Modern home with solar"
             className="w-full h-full object-cover opacity-30"
