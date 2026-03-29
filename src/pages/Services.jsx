@@ -393,36 +393,95 @@ export default function Services() {
           <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/50 to-white/40 dark:from-slate-950/60 dark:via-slate-950/50 dark:to-slate-950/40" />
         </div>
 
-        <div className="max-w-5xl mx-auto relative z-10">
+        <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-20">
+            <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-xs mb-4">
+              The process
+            </p>
             <h2 className="text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">
               How it works
             </h2>
             <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
-              A streamlined process from booking to report delivery.
+              From first contact to final report — here is exactly what to expect.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-8">
-            {[
-              { step: '01', title: 'Book', desc: 'Request a survey and provide site details' },
-              { step: '02', title: 'Survey', desc: 'We conduct the drone thermal inspection' },
-              { step: '03', title: 'Analysis', desc: 'Data processing and fault classification' },
-              { step: '04', title: 'Report', desc: 'Receive your comprehensive report' },
-            ].map((item) => (
-              <div
-                key={item.step}
-                className="group text-center p-8 rounded-2xl border border-gray-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm hover:bg-white/80 dark:hover:bg-slate-900/80 hover:border-gray-300 dark:hover:border-slate-700 transition-all duration-200"
-              >
-                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-amber-500/15 dark:bg-amber-500/10 flex items-center justify-center text-2xl font-light text-amber-600 dark:text-amber-400 group-hover:bg-amber-500/25 dark:group-hover:bg-amber-500/20 transition-all duration-200">
-                  {item.step}
-                </div>
-                <h3 className="text-xl font-medium text-slate-900 dark:text-white mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-slate-600 dark:text-slate-400">{item.desc}</p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            {/* Step 01 — Book */}
+            <div className="group flex flex-col p-8 rounded-2xl border border-gray-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm hover:bg-white/80 dark:hover:bg-slate-900/80 hover:border-amber-500/30 dark:hover:border-amber-500/30 transition-all duration-200">
+              <div className="w-14 h-14 mb-6 rounded-full bg-amber-500/15 dark:bg-amber-500/10 flex items-center justify-center text-xl font-light text-amber-600 dark:text-amber-400 group-hover:bg-amber-500/25 transition-all duration-200">
+                01
               </div>
-            ))}
+              <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-3">Book</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                Get in touch via phone or our contact form. We will discuss your situation, answer any questions, and recommend the most appropriate service for your needs.
+              </p>
+              <div className="mt-auto pt-4 border-t border-gray-100 dark:border-slate-800">
+                <a
+                  href="https://harroddiagnostics.co.uk/Contact"
+                  className="inline-flex items-center gap-2 text-sm text-amber-500 hover:text-amber-400 font-medium transition-colors duration-150"
+                >
+                  Contact us
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+
+            {/* Step 02 — Survey */}
+            <div className="group flex flex-col p-8 rounded-2xl border border-gray-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm hover:bg-white/80 dark:hover:bg-slate-900/80 hover:border-amber-500/30 dark:hover:border-amber-500/30 transition-all duration-200">
+              <div className="w-14 h-14 mb-6 rounded-full bg-amber-500/15 dark:bg-amber-500/10 flex items-center justify-center text-xl font-light text-amber-600 dark:text-amber-400 group-hover:bg-amber-500/25 transition-all duration-200">
+                02
+              </div>
+              <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-3">Survey</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                We visit your property and carry out a full drone thermal and visual inspection of your solar installation. The survey is non-intrusive and typically completed within a few hours.
+              </p>
+              <div className="mt-auto pt-4 border-t border-gray-100 dark:border-slate-800">
+                <span className="text-sm text-slate-500 dark:text-slate-500 italic">
+                  No access to your roof required
+                </span>
+              </div>
+            </div>
+
+            {/* Step 03 — Analysis */}
+            <div className="group flex flex-col p-8 rounded-2xl border border-gray-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm hover:bg-white/80 dark:hover:bg-slate-900/80 hover:border-amber-500/30 dark:hover:border-amber-500/30 transition-all duration-200">
+              <div className="w-14 h-14 mb-6 rounded-full bg-amber-500/15 dark:bg-amber-500/10 flex items-center justify-center text-xl font-light text-amber-600 dark:text-amber-400 group-hover:bg-amber-500/25 transition-all duration-200">
+                03
+              </div>
+              <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-3">Analysis</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                All thermal and visual data is processed and reviewed. Faults are identified, classified by type and severity, and mapped against your system layout ready for the report.
+              </p>
+              <div className="mt-auto pt-4 border-t border-gray-100 dark:border-slate-800">
+                <span className="text-sm text-slate-500 dark:text-slate-500 italic">
+                  Follows IEC TS 62446-3 guidelines
+                </span>
+              </div>
+            </div>
+
+            {/* Step 04 — Report */}
+            <div className="group flex flex-col p-8 rounded-2xl border border-gray-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm hover:bg-white/80 dark:hover:bg-slate-900/80 hover:border-amber-500/30 dark:hover:border-amber-500/30 transition-all duration-200">
+              <div className="w-14 h-14 mb-6 rounded-full bg-amber-500/15 dark:bg-amber-500/10 flex items-center justify-center text-xl font-light text-amber-600 dark:text-amber-400 group-hover:bg-amber-500/25 transition-all duration-200">
+                04
+              </div>
+              <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-3">Report</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                You receive a clear, professional engineering-grade report with thermal imagery, fault maps, severity ratings, and prioritised recommendations — ready to act on immediately.
+              </p>
+              <div className="mt-auto pt-4 border-t border-gray-100 dark:border-slate-800">
+                <a
+                  href="https://rickharrod.github.io/harroddiagnostics/Sample%20report%20Feb%202026.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-amber-500 hover:text-amber-400 font-medium transition-colors duration-150"
+                >
+                  View sample report
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
