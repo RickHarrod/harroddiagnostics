@@ -283,7 +283,7 @@ export default function Services() {
 
   const services = SERVICE_DEFINITIONS[activeTab];
 
-  const handleToggle = (title: string) => {
+  const handleToggle = (title) => {
     setExpanded(prev => (prev === title ? null : title));
   };
 
