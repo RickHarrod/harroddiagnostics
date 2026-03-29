@@ -251,8 +251,8 @@ function PriceCard({ tier, showVAT }) {
     <div
       className={`relative flex flex-col p-8 rounded-2xl border transition-all duration-200 ${
         tier.popular
-          ? 'bg-gradient-to-b from-amber-500/15 to-white dark:from-amber-500/10 dark:to-slate-800 border-amber-500/50 shadow-xl shadow-amber-500/15'
-          : 'bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 shadow-md shadow-black/10 dark:shadow-black/30'
+          ? 'bg-gradient-to-b from-amber-500/20 dark:from-amber-500/15 dark:to-slate-800 border-amber-500/60 shadow-xl shadow-amber-500/20'
+          : 'bg-gradient-to-b from-amber-500/10 dark:from-amber-500/8 dark:to-slate-800 border-amber-500/30 dark:border-amber-500/25 shadow-lg shadow-amber-500/10 dark:shadow-black/30'
       }`}
     >
       {/* Badge */}
@@ -280,7 +280,7 @@ function PriceCard({ tier, showVAT }) {
         )}
         {displayPrice ? (
           <div className="flex items-baseline gap-1">
-            <span className={`text-4xl font-bold ${tier.popular ? 'text-amber-500' : 'text-slate-900 dark:text-white'}`}>
+            <span className={`text-4xl font-bold text-amber-500`}>
               {displayPrice}
             </span>
           </div>
@@ -310,11 +310,7 @@ function PriceCard({ tier, showVAT }) {
       {tier.priceEx ? (
         <Link
           to={createPageUrl('Contact')}
-          className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-medium text-sm transition-all duration-200 ${
-            tier.popular
-              ? 'bg-amber-500 text-slate-950 hover:bg-amber-400'
-              : 'bg-slate-900 dark:bg-slate-700 text-white hover:bg-slate-700 dark:hover:bg-slate-600'
-          }`}
+          className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-medium text-sm transition-all duration-200 bg-amber-500 text-slate-950 hover:bg-amber-400`}
         >
           Book Survey
           <ArrowRight className="w-4 h-4" />
