@@ -55,7 +55,7 @@ const FAULT_ID = {
   title: 'Fault Identification & Classification',
   intro: 'Independent diagnosis of any issues found, explained in plain English.',
   description:
-    'Every defect is categorised by type and severity using IEC TS 62446‑3 guidance, giving you a clear understanding of what's wrong, how serious it is, and what it means for your system.',
+    `Every defect is categorised by type and severity using IEC TS 62446\u20113 guidance, giving you a clear understanding of what's wrong, how serious it is, and what it means for your system.`,
   bullets: [
     'Categorises faults using IEC TS 62446‑3',
     'Distinguishes minor issues from critical ones',
