@@ -4,55 +4,55 @@ import { createPageUrl } from '../utils';
 import { 
   Scan, 
   Eye, 
-  Flame, 
   AlertTriangle, 
   BarChart3, 
   FileText, 
   Wrench, 
   Shield,
+  Home,
   ArrowRight
 } from 'lucide-react';
 
 const services = [
   {
     icon: Scan,
-    title: "Drone Thermal Survey",
-    description: "High-resolution aerial thermal imaging of your entire solar installation using calibrated radiometric sensors."
+    title: "Full Thermal Imaging Survey",
+    description: "High‑resolution infrared imaging of your entire solar array to reveal hidden hotspots, string issues, and thermal anomalies that monitoring apps can’t detect."
   },
   {
     icon: Eye,
-    title: "Visual Inspection",
-    description: "Comprehensive visual assessment to identify physical damage, soiling, and installation defects."
-  },
-  {
-    icon: Flame,
-    title: "Hotspot Detection",
-    description: "Precise identification of thermal anomalies indicating cell failures, bypass diode issues, or connection problems."
+    title: "Daylight Visual Inspection",
+    description: "Detailed visual assessment to identify cracked modules, shading problems, contamination, loose fixings, and installation defects."
   },
   {
     icon: AlertTriangle,
-    title: "Fault Classification",
-    description: "Systematic categorisation of defects by type and severity following IEC TS 62446-3 guidelines."
+    title: "Fault Identification & Classification",
+    description: "Independent diagnosis of any issues found, categorised by type and severity using IEC TS 62446‑3 guidance."
   },
   {
     icon: BarChart3,
-    title: "String-Level Analysis",
-    description: "Performance assessment at string level to identify underperforming sections and potential causes."
+    title: "Thermal Performance Assessment",
+    description: "Thermal patterns highlight underperforming sections of your system and the likely causes, revealing issues long before they appear in monitoring data."
   },
   {
     icon: FileText,
-    title: "Engineering Report",
-    description: "Comprehensive documentation with thermal imagery, fault maps, and detailed technical findings."
+    title: "Engineering‑Grade Diagnostic Report",
+    description: "A structured report with thermal imagery, defect maps, severity ratings, and technical findings — written clearly for homeowners and installers alike."
   },
   {
     icon: Wrench,
-    title: "Corrective Recommendations",
-    description: "Actionable guidance on repairs, replacements, and maintenance priorities based on findings."
+    title: "Corrective Action Recommendations",
+    description: "Independent, practical guidance on what to fix, who can fix it, and which issues should be prioritised for performance or safety."
   },
   {
     icon: Shield,
-    title: "Warranty & Insurance Evidence",
-    description: "Independent documentation suitable for warranty claims, insurance assessments, and dispute resolution."
+    title: "Warranty & Insurance Evidence Pack",
+    description: "Independent thermal evidence and written findings suitable for warranty claims, installer disputes, insurance assessments, and long‑term system records."
+  },
+  {
+    icon: Home,
+    title: "Pre‑Purchase & Homebuyer PV Assessment",
+    description: "A full diagnostic check for buyers or new homeowners, revealing hidden defects, safety issues, and performance problems that standard surveys and monitoring apps miss."
   }
 ];
 
@@ -62,25 +62,25 @@ export default function Services() {
 
       {/* Hero */}
       <section className="py-24 px-6 relative overflow-hidden">
-      <div className="absolute inset-0">
-  <img 
-    src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Drone%20flight%20wide1.jpg" 
-    alt="Solar panels at sunset"
-    className="w-full h-full object-cover"
-  />
+        <div className="absolute inset-0">
+          <img 
+            src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Drone%20flight%20wide1.jpg" 
+            alt="Solar panels at sunset"
+            className="w-full h-full object-cover"
+          />
 
-  {/* Mid‑dark gradient overlay */}
-<div className="absolute inset-0 bg-gradient-to-b 
-  from-white/55 via-white/45 to-white/30
-  dark:from-slate-950/55 dark:via-slate-950/45 dark:to-slate-950/30" 
-/>
+          {/* Mid‑dark gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b 
+            from-white/55 via-white/45 to-white/30
+            dark:from-slate-950/55 dark:via-slate-950/45 dark:to-slate-950/30" 
+          />
 
-{/* Mid‑dark radial overlay */}
-<div className="absolute inset-0 
-  bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.28)_100%)]
-  dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.28)_100%)]" 
-/>
-</div>
+          {/* Mid‑dark radial overlay */}
+          <div className="absolute inset-0 
+            bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.28)_100%)]
+            dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.28)_100%)]" 
+          />
+        </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-sm mb-6">
@@ -91,7 +91,7 @@ export default function Services() {
             <span className="text-slate-600 dark:text-slate-400">inspection services</span>
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            From aerial survey to final report, we provide end-to-end thermal inspection 
+            From aerial survey to final report, we provide end‑to‑end thermal inspection 
             services designed to maximise the performance of your solar assets.
           </p>
         </div>
@@ -108,7 +108,7 @@ export default function Services() {
               >
                 <div className="flex items-start gap-6">
                   <div className="w-14 h-14 shrink-0 rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-500/10 flex items-center justify-center group-hover:from-amber-500/30 group-hover:to-orange-500/20 transition-all duration-100">
-                    <service.icon className="w-6 h-6 text-amber-500" />
+                    <service.icon className="w-7 h-7 text-amber-500" />
                   </div>
                   <div>
                     <h3 className="text-xl font-medium text-slate-900 dark:text-white mb-3">
@@ -126,72 +126,67 @@ export default function Services() {
       </section>
 
       {/* Process */}
-<section className="py-32 px-6 bg-white dark:bg-slate-950 relative overflow-hidden">
-  <div className="absolute inset-0">
-    <img 
-      src="https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=1920&q=80" 
-      alt="Modern home with solar"
-      className="w-full h-full object-cover opacity-30"
-    />
+      <section className="py-32 px-6 bg-white dark:bg-slate-950 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=1920&q=80" 
+            alt="Modern home with solar"
+            className="w-full h-full object-cover opacity-30"
+          />
 
-    {/* Softer gradient so the image shows through */}
-    <div className="absolute inset-0 bg-gradient-to-b 
-      from-white/60 via-white/50 to-white/40
-      dark:from-slate-950/60 dark:via-slate-950/50 dark:to-slate-950/40" 
-    />
-  </div>
-
-  <div className="max-w-5xl mx-auto relative z-10">
-    <div className="text-center mb-20">
-      <h2 className="text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">
-        How it works
-      </h2>
-      <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
-        A streamlined process from booking to report delivery.
-      </p>
-    </div>
-
-    <div className="grid md:grid-cols-4 gap-8">
-      {[
-        { step: "01", title: "Book", desc: "Request a survey and provide site details" },
-        { step: "02", title: "Survey", desc: "We conduct the drone thermal inspection" },
-        { step: "03", title: "Analysis", desc: "Data processing and fault classification" },
-        { step: "04", title: "Report", desc: "Receive your comprehensive report" }
-      ].map((item) => (
-        
-        /* Combined Option 2 + Option 3 */
-        <div
-          key={item.step}
-          className="group text-center p-8 rounded-2xl 
-                     border border-gray-200 dark:border-slate-800 
-                     bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm
-                     hover:bg-white/80 dark:hover:bg-slate-900/80 
-                     hover:border-gray-300 dark:hover:border-slate-700
-                     transition-all duration-200"
-        >
-          {/* Circular step badge */}
-          <div className="w-16 h-16 mx-auto mb-6 rounded-full 
-                          bg-amber-500/15 dark:bg-amber-500/10 
-                          flex items-center justify-center
-                          text-2xl font-light text-amber-600 dark:text-amber-400
-                          group-hover:bg-amber-500/25 dark:group-hover:bg-amber-500/20
-                          transition-all duration-200">
-            {item.step}
-          </div>
-
-          <h3 className="text-xl font-medium text-slate-900 dark:text-white mb-2">
-            {item.title}
-          </h3>
-
-          <p className="text-slate-600 dark:text-slate-400">
-            {item.desc}
-          </p>
+          <div className="absolute inset-0 bg-gradient-to-b 
+            from-white/60 via-white/50 to-white/40
+            dark:from-slate-950/60 dark:via-slate-950/50 dark:to-slate-950/40" 
+          />
         </div>
 
-      ))}
-    </div>
-  </div>
-</section>
+        <div className="max-w-5xl mx-auto relative z-10">
+          <div className="text-center mb-20">
+            <h2 className="text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">
+              How it works
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
+              A streamlined process from booking to report delivery.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-8">
+            {[
+              { step: "01", title: "Book", desc: "Request a survey and provide site details" },
+              { step: "02", title: "Survey", desc: "We conduct the drone thermal inspection" },
+              { step: "03", title: "Analysis", desc: "Data processing and fault classification" },
+              { step: "04", title: "Report", desc: "Receive your comprehensive report" }
+            ].map((item) => (
+              <div
+                key={item.step}
+                className="group text-center p-8 rounded-2xl 
+                           border border-gray-200 dark:border-slate-800 
+                           bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm
+                           hover:bg-white/80 dark:hover:bg-slate-900/80 
+                           hover:border-gray-300 dark:hover:border-slate-700
+                           transition-all duration-200"
+              >
+                <div className="w-16 h-16 mx-auto mb-6 rounded-full 
+                                bg-amber-500/15 dark:bg-amber-500/10 
+                                flex items-center justify-center
+                                text-2xl font-light text-amber-600 dark:text-amber-400
+                                group-hover:bg-amber-500/25 dark:group-hover:bg-amber-500/20
+                                transition-all duration-200">
+                  {item.step}
+                </div>
+
+                <h3 className="text-xl font-medium text-slate-900 dark:text-white mb-2">
+                  {item.title}
+                </h3>
+
+                <p className="text-slate-600 dark:text-slate-400">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* CTA */}
       <section className="py-24 px-6 bg-gradient-to-t from-gray-50 to-white dark:from-slate-900 dark:to-slate-950">
