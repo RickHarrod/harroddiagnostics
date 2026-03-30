@@ -251,8 +251,8 @@ function PriceCard({ tier, showVAT }) {
     <div
       className={`relative flex flex-col p-8 rounded-2xl border transition-all duration-200 ${
         tier.popular
-          ? 'bg-gradient-to-b from-amber-500/20 dark:from-amber-500/15 dark:to-slate-800 border-amber-500/60 shadow-xl shadow-amber-500/20'
-          : 'bg-gradient-to-b from-amber-500/10 dark:from-amber-500/8 dark:to-slate-800 border-amber-500/30 dark:border-amber-500/25 shadow-lg shadow-amber-500/10 dark:shadow-black/30'
+          ? 'bg-gradient-to-b from-amber-500/10 to-gray-50 dark:to-slate-900 border-amber-500/40 shadow-lg shadow-amber-500/10'
+          : 'bg-gray-50 dark:bg-slate-900 border-gray-200 dark:border-slate-800'
       }`}
     >
       {/* Badge */}
@@ -280,7 +280,7 @@ function PriceCard({ tier, showVAT }) {
         )}
         {displayPrice ? (
           <div className="flex items-baseline gap-1">
-            <span className={`text-4xl font-bold text-amber-500`}>
+            <span className={`text-4xl font-bold ${tier.popular ? 'text-amber-500' : 'text-slate-900 dark:text-white'}`}>
               {displayPrice}
             </span>
           </div>
@@ -301,7 +301,7 @@ function PriceCard({ tier, showVAT }) {
         {tier.features.map((f) => (
           <li key={f} className="flex items-start gap-3">
             <Check className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-            <span className="text-sm text-slate-700 dark:text-slate-200">{f}</span>
+            <span className="text-sm text-slate-700 dark:text-slate-300">{f}</span>
           </li>
         ))}
       </ul>
@@ -310,7 +310,11 @@ function PriceCard({ tier, showVAT }) {
       {tier.priceEx ? (
         <Link
           to={createPageUrl('Contact')}
-          className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-medium text-sm transition-all duration-200 bg-amber-500 text-slate-950 hover:bg-amber-400`}
+          className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-medium text-sm transition-all duration-200 ${
+            tier.popular
+              ? 'bg-amber-500 text-slate-950 hover:bg-amber-400'
+              : 'bg-slate-800 dark:bg-slate-800 text-white hover:bg-slate-700'
+          }`}
         >
           Book Survey
           <ArrowRight className="w-4 h-4" />
@@ -374,7 +378,7 @@ export default function Pricing() {
       </section>
 
       {/* ── Tabs + Pricing Cards ── */}
-      <section className="py-16 px-6 bg-gray-100 dark:bg-slate-950">
+      <section className="py-16 px-6 bg-gray-50 dark:bg-slate-900">
         <div className="max-w-6xl mx-auto">
 
           {/* Audience tabs */}
@@ -441,7 +445,7 @@ export default function Pricing() {
       </section>
 
       {/* ── Add-ons ── */}
-      <section className="py-20 px-6 bg-gray-100 dark:bg-slate-900">
+      <section className="py-20 px-6 bg-white dark:bg-slate-950">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-xs mb-4">
@@ -462,13 +466,13 @@ export default function Pricing() {
               return (
                 <div
                   key={addon.name}
-                  className="group p-6 rounded-2xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-md shadow-black/5 dark:shadow-black/20 hover:border-amber-500/40 transition-all duration-200"
+                  className="group p-6 rounded-2xl border border-gray-200 dark:border-slate-800 bg-gray-50 dark:bg-slate-900 hover:border-amber-500/30 transition-all duration-200"
                 >
                   <div className="w-10 h-10 mb-4 rounded-lg bg-amber-500/15 flex items-center justify-center group-hover:bg-amber-500/25 transition-all duration-200">
                     <AddonIcon className="w-5 h-5 text-amber-500" />
                   </div>
                   <h3 className="text-sm font-medium text-slate-900 dark:text-white mb-2">{addon.name}</h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-300 leading-relaxed mb-4">{addon.desc}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">{addon.desc}</p>
                   <p className="text-amber-500 font-semibold text-sm">{price}</p>
                 </div>
               );
@@ -478,9 +482,9 @@ export default function Pricing() {
       </section>
 
       {/* ── Utility Scale ── */}
-      <section className="py-12 px-6 bg-white dark:bg-slate-950">
+      <section className="py-12 px-6 bg-gray-50 dark:bg-slate-900">
         <div className="max-w-3xl mx-auto">
-          <div className="p-8 bg-gray-50 dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-md shadow-black/5 dark:shadow-black/20 text-center">
+          <div className="p-8 bg-white dark:bg-slate-950 rounded-2xl border border-gray-200 dark:border-slate-800 text-center">
             <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-xs mb-4">
               Utility scale
             </p>
@@ -503,7 +507,7 @@ export default function Pricing() {
       </section>
 
       {/* ── What's included ── */}
-      <section className="py-24 px-6 bg-gray-100 dark:bg-slate-900">
+      <section className="py-24 px-6 bg-white dark:bg-slate-950">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-light text-slate-900 dark:text-white mb-4">
@@ -541,7 +545,7 @@ export default function Pricing() {
             ].map((section) => (
               <div
                 key={section.title}
-                className="p-8 bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-md shadow-black/5 dark:shadow-black/20"
+                className="p-8 bg-gray-50 dark:bg-slate-900 rounded-2xl border border-gray-200 dark:border-slate-800"
               >
                 <h3 className="text-xl font-medium text-slate-900 dark:text-white mb-6">
                   {section.title}
@@ -550,7 +554,7 @@ export default function Pricing() {
                   {section.items.map((item) => (
                     <li key={item} className="flex items-center gap-3">
                       <div className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
-                      <span className="text-slate-600 dark:text-slate-200 text-sm">{item}</span>
+                      <span className="text-slate-600 dark:text-slate-400 text-sm">{item}</span>
                     </li>
                   ))}
                 </ul>
