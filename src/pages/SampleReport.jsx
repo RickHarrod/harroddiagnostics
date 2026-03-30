@@ -1,82 +1,229 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
-import { 
-  FileText, 
-  AlertTriangle, 
-  CheckCircle, 
+import {
+  FileText,
+  AlertTriangle,
+  CheckCircle,
   ThermometerSun,
   ArrowRight,
   Download,
-  Eye
+  Eye,
+  Flame,
+  Zap,
+  Wind,
+  Activity,
+  Shield,
+  ToggleLeft,
+  ToggleRight,
 } from 'lucide-react';
+
+// ─── Report mock sections ─────────────────────────────────────────────────────
 
 const reportSections = [
   {
-    title: "Executive Summary",
-    description: "High-level overview of inspection findings, system health status, and priority recommendations."
+    index: '01',
+    title: 'Executive Summary',
+    description: 'System health status, key findings, and priority actions at a glance.',
   },
   {
-    title: "System Information",
-    description: "Documented details of the installation including capacity, configuration, and inspection conditions."
+    index: '02',
+    title: 'System Information',
+    description: 'Installation capacity, configuration, panel count, and inspection conditions.',
   },
   {
-    title: "Thermal Imagery",
-    description: "Annotated thermal images showing all identified anomalies with temperature differentials."
+    index: '03',
+    title: 'Thermal Imagery',
+    description: 'Annotated infrared captures for every identified anomaly with ΔT readings.',
   },
   {
-    title: "Fault Classification",
-    description: "Each anomaly classified by type and severity following IEC TS 62446-3 guidelines."
+    index: '04',
+    title: 'Fault Classification',
+    description: 'Each defect typed and severity-rated per IEC TS 62446-3.',
   },
   {
-    title: "Recommendations",
-    description: "Specific corrective actions prioritised by urgency and potential impact on system performance."
+    index: '05',
+    title: 'Corrective Recommendations',
+    description: 'Prioritised repair actions with expected impact on yield and safety.',
   },
   {
-    title: "Technical Appendix",
-    description: "Detailed methodology, equipment specifications, and raw thermal data files."
-  }
+    index: '06',
+    title: 'Technical Appendix',
+    description: 'Methodology, equipment specs, calibration data, and raw thermal files.',
+  },
 ];
 
-const sampleFindings = [
+// ─── Fault taxonomy ───────────────────────────────────────────────────────────
+
+const faults = [
   {
-    type: "Hotspot - Cell",
-    severity: "High",
-    description: "Single cell hotspot indicating potential cell failure",
-    temp: "ΔT 28°C",
-    icon: AlertTriangle,
-    color: "text-red-500",
-    bg: "bg-red-500/10"
+    icon: Flame,
+    severity: 'Critical',
+    type: 'Hotspot — Cell Level',
+    tempRange: 'ΔT 20–60°C',
+    simple: {
+      name: 'Overheating cell',
+      cause: 'A single cell within a panel is running dangerously hot — usually caused by a cracked cell, contamination, or a manufacturing defect.',
+      consequence: 'Left unrepaired this can permanently damage the panel and in extreme cases poses a fire risk.',
+    },
+    technical: {
+      name: 'Cell-level thermal anomaly',
+      cause: 'Localised resistive heating within a single cell, typically caused by internal cracking, micro-cracks, or shunting. Classified as Category C under IEC TS 62446-3.',
+      consequence: 'Accelerated degradation, potential bypass diode activation, and fire risk at high ΔT. Immediate remedial action recommended.',
+    },
   },
   {
-    type: "String Underperformance",
-    severity: "Medium",
-    description: "Elevated temperatures across entire string suggesting connection issue",
-    temp: "ΔT 12°C",
+    icon: Zap,
+    severity: 'Critical',
+    type: 'Bypass Diode Failure',
+    tempRange: 'ΔT 15–40°C',
+    simple: {
+      name: 'Failed safety component',
+      cause: 'A bypass diode inside the panel has failed. These components protect sections of the panel when shading or faults occur.',
+      consequence: 'One third of the panel is effectively inactive, silently reducing your output and potentially overheating the junction box.',
+    },
+    technical: {
+      name: 'Bypass diode short-circuit or open-circuit',
+      cause: 'Thermal signature presents as a single cell string within the module operating at significantly elevated temperature. Consistent with diode failure in short-circuit mode or open-circuit causing reverse-bias heating.',
+      consequence: 'Loss of approximately 33% module output. Junction box thermal stress and risk of accelerated insulation degradation.',
+    },
+  },
+  {
+    icon: Activity,
+    severity: 'High',
+    type: 'String Underperformance',
+    tempRange: 'ΔT 8–20°C',
+    simple: {
+      name: 'Underperforming panel string',
+      cause: 'An entire row of panels is running warmer than the others — often caused by a loose connection, corroded connector, or a failed junction.',
+      consequence: 'Your system is quietly losing output. The fault can worsen over time if connectors continue to degrade.',
+    },
+    technical: {
+      name: 'String-level resistive heating',
+      cause: 'Uniform thermal elevation across a series string, indicative of increased series resistance. Likely cause: degraded MC4 connector, corroded terminal, or failed combiner fuse.',
+      consequence: 'Proportional reduction in string current and system yield. Impedance mismatch may induce MPPT instability in affected inverter channel.',
+    },
+  },
+  {
     icon: ThermometerSun,
-    color: "text-amber-500",
-    bg: "bg-amber-500/10"
+    severity: 'Medium',
+    type: 'PID Effect',
+    tempRange: 'ΔT 4–12°C',
+    simple: {
+      name: 'Gradual performance loss (PID)',
+      cause: 'Potential Induced Degradation — a slow process where voltage stress causes panel cells to lose efficiency over time. Common in older or cheaper panels.',
+      consequence: 'Can cause 10–30% output reduction across affected panels if not addressed. Partially reversible with the right inverter settings.',
+    },
+    technical: {
+      name: 'Potential Induced Degradation — shunting type',
+      cause: 'Uniform moderate thermal pattern across multiple cells consistent with leakage current pathway formation. Typically associated with high system voltage, poor encapsulant quality, or inadequate grounding.',
+      consequence: 'Progressive Pmax reduction. IEC 62804 assessment recommended. Mitigation via module-level PID recovery or inverter-side compensation possible in some configurations.',
+    },
   },
   {
-    type: "Module Operating Normally",
-    severity: "None",
-    description: "Uniform temperature distribution within acceptable parameters",
-    temp: "ΔT <2°C",
+    icon: Wind,
+    severity: 'Low',
+    type: 'Soiling or Shading',
+    tempRange: 'ΔT 2–8°C',
+    simple: {
+      name: 'Dirt or shadow causing losses',
+      cause: 'Debris, bird fouling, or nearby objects casting shade are reducing output in specific panels. Often easy to resolve.',
+      consequence: 'Localised output reduction. Regular cleaning or trimming nearby vegetation typically resolves this.',
+    },
+    technical: {
+      name: 'Extrinsic shading or soiling — partial module obstruction',
+      cause: 'Thermal pattern consistent with non-uniform irradiance across cell strings. Geometrically regular pattern suggests fixed obstruction; irregular pattern suggests soiling accumulation.',
+      consequence: 'Bypass diode activation in shaded cell strings, reducing module output proportionally. No component damage expected if transient.',
+    },
+  },
+  {
+    icon: Shield,
+    severity: 'Monitor',
+    type: 'Early-Stage Delamination',
+    tempRange: 'ΔT 1–4°C',
+    simple: {
+      name: 'Panel surface starting to separate',
+      cause: 'The protective layers of the panel are beginning to separate — often caused by age, UV exposure, or manufacturing quality. Not yet causing significant output loss.',
+      consequence: 'Worth monitoring annually. If moisture ingress occurs the fault will accelerate quickly.',
+    },
+    technical: {
+      name: 'Encapsulant delamination — early stage',
+      cause: 'Subtle thermal differential consistent with air gap formation between encapsulant and cell layer. Often detected before visible yellowing or browning. Associated with EVA degradation via acetic acid formation.',
+      consequence: 'Minimal immediate yield impact. Monitor for moisture ingress which precipitates rapid power loss and potential electrical hazard. Flag for inclusion in next annual inspection.',
+    },
+  },
+  {
     icon: CheckCircle,
-    color: "text-green-500",
-    bg: "bg-green-500/10"
-  }
+    severity: 'None',
+    type: 'Module Operating Normally',
+    tempRange: 'ΔT < 2°C',
+    simple: {
+      name: 'Healthy panel — no action needed',
+      cause: 'Uniform temperature distribution across the entire module within acceptable operating parameters.',
+      consequence: 'No fault detected. Module is performing as expected.',
+    },
+    technical: {
+      name: 'No thermal anomaly detected',
+      cause: 'Homogeneous irradiance absorption and heat dissipation across all cell strings. Temperature differential within IEC TS 62446-3 acceptable thresholds.',
+      consequence: 'No remedial action required. Baseline data logged for future comparative analysis.',
+    },
+  },
 ];
+
+// ─── Severity config ──────────────────────────────────────────────────────────
+
+const severityConfig = {
+  Critical: {
+    badge: 'bg-red-500/20 text-red-400',
+    border: 'border-red-500/20',
+    icon: 'text-red-500',
+    bg: 'bg-red-500/10',
+  },
+  High: {
+    badge: 'bg-orange-500/20 text-orange-400',
+    border: 'border-orange-500/20',
+    icon: 'text-orange-500',
+    bg: 'bg-orange-500/10',
+  },
+  Medium: {
+    badge: 'bg-amber-500/20 text-amber-400',
+    border: 'border-amber-500/20',
+    icon: 'text-amber-500',
+    bg: 'bg-amber-500/10',
+  },
+  Low: {
+    badge: 'bg-blue-500/20 text-blue-400',
+    border: 'border-blue-500/20',
+    icon: 'text-blue-400',
+    bg: 'bg-blue-500/10',
+  },
+  Monitor: {
+    badge: 'bg-purple-500/20 text-purple-400',
+    border: 'border-purple-500/20',
+    icon: 'text-purple-400',
+    bg: 'bg-purple-500/10',
+  },
+  None: {
+    badge: 'bg-green-500/20 text-green-400',
+    border: 'border-green-500/20',
+    icon: 'text-green-500',
+    bg: 'bg-green-500/10',
+  },
+};
+
+// ─── Main component ───────────────────────────────────────────────────────────
 
 export default function SampleReport() {
+  const [technical, setTechnical] = useState(false);
+
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950 pt-24">
-      {/* Hero */}
+
+      {/* ── Hero ── */}
       <section className="py-24 px-6 relative overflow-hidden">
-        {/* Background image */}
         <div className="absolute inset-0">
-          <img 
-            src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Drone%20flight%20wide1.jpg" 
+          <img
+            src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Drone%20flight%20wide1.jpg"
             alt="Solar array"
             className="w-full h-full object-cover"
           />
@@ -84,178 +231,291 @@ export default function SampleReport() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.35)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.35)_100%)]" />
         </div>
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <div>
-            <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-sm mb-6">
-              Sample Report
-            </p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-slate-900 dark:text-white mb-8">
-              What you'll receive<br />
-              <span className="text-slate-600 dark:text-slate-400">after every inspection</span>
-            </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              Every Solar Scan inspection includes a comprehensive engineering report 
-              with clear findings and actionable recommendations.
-            </p>
-          </div>
+          <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-sm mb-6">
+            Sample Report
+          </p>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-slate-900 dark:text-white mb-8">
+            What you will receive<br />
+            <span className="text-slate-600 dark:text-slate-400">after every inspection</span>
+          </h1>
+          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            Every Harrod Diagnostics inspection delivers a structured, engineering-grade report
+            with clear findings, annotated thermal imagery, and actionable recommendations.
+          </p>
         </div>
       </section>
 
-      {/* Report Preview */}
-      <section className="py-16 px-6">
+      {/* ── Mock Report Document ── */}
+      <section className="py-16 px-6 bg-gray-100 dark:bg-slate-950">
         <div className="max-w-5xl mx-auto">
-          <div className="bg-gray-50 dark:bg-slate-900 rounded-2xl border border-gray-200 dark:border-slate-800 overflow-hidden">
-            {/* Report Header */}
-            <div className="p-8 border-b border-gray-200 dark:border-slate-800 bg-gradient-to-r from-gray-100 to-white dark:from-slate-900 dark:to-slate-950">
-              <div className="flex items-center justify-between flex-wrap gap-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center">
-                    <FileText className="w-6 h-6 text-amber-500" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-medium text-slate-900 dark:text-white">Thermal Inspection Report</h3>
-                    <p className="text-slate-500 dark:text-slate-500">Sample Commercial Installation</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                <a 
-  href="https://rickharrod.github.io/harroddiagnostics/Sample%20report%20Feb%202026.pdf"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="flex items-center gap-2 px-4 py-2 bg-gray-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-gray-300 dark:hover:bg-slate-700 transition-colors"
->
-  <Eye className="w-4 h-4" />
-  Preview
-</a>
 
-<a 
-  href="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/main/Sample%20report%20Feb%202026.pdf"
-  download
-  className="flex items-center gap-2 px-4 py-2 bg-amber-500 text-slate-950 rounded-lg hover:bg-amber-400 transition-colors"
->
-  <Download className="w-4 h-4" />
-  Download PDF
-</a>
+          {/* Document shell */}
+          <div className="rounded-2xl overflow-hidden border border-gray-300 dark:border-slate-700 shadow-2xl shadow-black/10 dark:shadow-black/40">
+
+            {/* Document top bar — mimics a report header */}
+            <div className="bg-slate-900 px-8 py-5 flex items-center justify-between flex-wrap gap-4">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
+                  <FileText className="w-5 h-5 text-amber-500" />
                 </div>
+                <div>
+                  <p className="text-white font-medium text-sm">Harrod Diagnostics — Thermal Inspection Report</p>
+                  <p className="text-slate-400 text-xs mt-0.5">IEC TS 62446-3 Compliant &nbsp;·&nbsp; Confidential</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <a
+                  href="https://rickharrod.github.io/harroddiagnostics/Sample%20report%20Feb%202026.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 text-slate-300 text-sm rounded-lg hover:bg-slate-700 transition-colors"
+                >
+                  <Eye className="w-4 h-4" />
+                  Preview PDF
+                </a>
+                <a
+                  href="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/main/Sample%20report%20Feb%202026.pdf"
+                  download
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 text-slate-950 text-sm font-medium rounded-lg hover:bg-amber-400 transition-colors"
+                >
+                  <Download className="w-4 h-4" />
+                  Download
+                </a>
               </div>
             </div>
 
-            {/* Report Content Preview */}
-            <div className="p-8">
-              <div className="grid md:grid-cols-2 gap-6">
-                {reportSections.map((section, index) => (
+            {/* Document meta bar */}
+            <div className="bg-white dark:bg-slate-800 px-8 py-4 border-b border-gray-200 dark:border-slate-700 flex flex-wrap gap-8">
+              {[
+                { label: 'Site', value: 'Sample Residential Installation' },
+                { label: 'Panels', value: '14 modules / 2 strings' },
+                { label: 'Inspection Date', value: 'February 2026' },
+                { label: 'Status', value: '2 faults identified' },
+              ].map((item) => (
+                <div key={item.label}>
+                  <p className="text-xs text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-0.5">{item.label}</p>
+                  <p className="text-sm font-medium text-slate-900 dark:text-white">{item.value}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Section index */}
+            <div className="bg-white dark:bg-slate-900 p-8">
+              <p className="text-xs font-medium text-amber-500 uppercase tracking-widest mb-6">Report Contents</p>
+              <div className="grid md:grid-cols-2 gap-4">
+                {reportSections.map((section) => (
                   <div
                     key={section.title}
-                    className="p-5 bg-white dark:bg-slate-950 rounded-xl border border-gray-200 dark:border-slate-800"
+                    className="flex items-start gap-4 p-4 rounded-xl border border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50"
                   >
-                    <div className="flex items-start gap-3">
-                      <div className="w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center shrink-0 mt-0.5">
-                        <span className="text-xs font-medium text-amber-500">{index + 1}</span>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-slate-900 dark:text-white mb-1">{section.title}</h4>
-                        <p className="text-sm text-slate-600 dark:text-slate-500">{section.description}</p>
-                      </div>
+                    <span className="text-xs font-mono text-amber-500 mt-0.5 shrink-0">{section.index}</span>
+                    <div>
+                      <p className="text-sm font-medium text-slate-900 dark:text-white mb-0.5">{section.title}</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{section.description}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* Sample Findings */}
+      {/* ── Fault Classifications ── */}
       <section className="py-24 px-6 bg-gray-50 dark:bg-slate-900">
         <div className="max-w-5xl mx-auto">
+
+          {/* Header + toggle */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+            <div>
+              <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-xs mb-3">
+                Fault taxonomy
+              </p>
+              <h2 className="text-3xl font-light text-slate-900 dark:text-white mb-3">
+                How faults are classified
+              </h2>
+              <p className="text-slate-600 dark:text-slate-400 max-w-xl">
+                Every anomaly detected is identified, typed, and severity-rated. Toggle between a plain-English explanation and the technical classification used in the report.
+              </p>
+            </div>
+
+            {/* Plain / Technical toggle */}
+            <button
+              onClick={() => setTechnical(!technical)}
+              className="inline-flex items-center gap-3 px-5 py-3 rounded-full border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-amber-500/50 transition-all duration-200 shrink-0"
+            >
+              {technical ? (
+                <ToggleRight className="w-5 h-5 text-amber-500" />
+              ) : (
+                <ToggleLeft className="w-5 h-5 text-slate-400" />
+              )}
+              {technical ? 'Technical view' : 'Plain English view'}
+            </button>
+          </div>
+
+          {/* Fault cards */}
+          <div className="space-y-4">
+            {faults.map((fault) => {
+              const cfg = severityConfig[fault.severity];
+              const FaultIcon = fault.icon;
+              const content = technical ? fault.technical : fault.simple;
+
+              return (
+                <div
+                  key={fault.type}
+                  className={`p-6 bg-white dark:bg-slate-800 rounded-xl border ${cfg.border} dark:border-opacity-40 shadow-sm`}
+                  style={{ transition: 'all 0.2s' }}
+                >
+                  <div className="flex flex-col md:flex-row md:items-start gap-5">
+
+                    {/* Icon */}
+                    <div className={`w-12 h-12 rounded-xl ${cfg.bg} flex items-center justify-center shrink-0`}>
+                      <FaultIcon className={`w-6 h-6 ${cfg.icon}`} />
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center gap-3 mb-2">
+                        <h3 className="text-base font-medium text-slate-900 dark:text-white">
+                          {fault.type}
+                        </h3>
+                        <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${cfg.badge}`}>
+                          {fault.severity}
+                        </span>
+                        {technical && (
+                          <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 font-mono">
+                            IEC TS 62446-3
+                          </span>
+                        )}
+                      </div>
+
+                      <p className="text-sm font-medium text-amber-600 dark:text-amber-400 mb-2">
+                        {content.name}
+                      </p>
+
+                      <div className="grid md:grid-cols-2 gap-x-8 gap-y-2">
+                        <div>
+                          <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Cause</p>
+                          <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{content.cause}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Consequence</p>
+                          <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{content.consequence}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Temp range */}
+                    <div className="md:text-right shrink-0">
+                      <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Typical ΔT</p>
+                      <p className="text-lg font-light text-slate-900 dark:text-white font-mono">{fault.tempRange}</p>
+                    </div>
+
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Thermal Imagery ── */}
+      <section className="py-24 px-6 bg-white dark:bg-slate-950">
+        <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-light text-slate-900 dark:text-white mb-6">
-              Sample fault classifications
+            <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-xs mb-4">
+              Visual evidence
+            </p>
+            <h2 className="text-3xl font-light text-slate-900 dark:text-white mb-4">
+              Thermal imagery included in every report
             </h2>
             <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-              Here's how we classify and present findings in your report.
+              High-resolution annotated thermal captures clearly showing anomaly locations,
+              temperature differentials, and fault boundaries.
             </p>
           </div>
 
-          <div className="space-y-4">
-            {sampleFindings.map((finding) => (
+          <div className="aspect-video rounded-2xl overflow-hidden border border-gray-200 dark:border-slate-800 relative shadow-xl shadow-black/10">
+            <img
+              src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Harrod%20thermal%20defect%20sample.jpg"
+              alt="Thermal capture with identified hotspots"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute bottom-6 left-6 bg-black/50 backdrop-blur px-4 py-2 rounded-lg">
+              <p className="text-white text-sm">Example thermal capture — identified defects annotated in report</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Why it matters ── */}
+      <section className="py-20 px-6 bg-gray-100 dark:bg-slate-900">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-xs mb-4">
+              Why it matters
+            </p>
+            <h2 className="text-3xl font-light text-slate-900 dark:text-white mb-4">
+              What this report gives you
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                heading: 'Independent evidence',
+                body: 'A third-party engineering document carries weight that a monitoring app screenshot never will — with insurers, warranty teams, installers, and solicitors.',
+              },
+              {
+                heading: 'Something to act on',
+                body: 'Every finding comes with a prioritised recommendation. You will know exactly what needs fixing, what can wait, and what is fine to leave alone.',
+              },
+              {
+                heading: 'A long-term record',
+                body: 'Annual inspection reports build a documented history of your system. That is valuable when selling a property, making a claim, or simply tracking performance over time.',
+              },
+            ].map((item) => (
               <div
-                key={finding.type}
-                className="p-6 bg-white dark:bg-slate-950 rounded-xl border border-gray-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center gap-6"
+                key={item.heading}
+                className="p-7 bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm"
               >
-                <div className={`w-14 h-14 rounded-xl ${finding.bg} flex items-center justify-center shrink-0`}>
-                  <finding.icon className={`w-7 h-7 ${finding.color}`} />
-                </div>
-                <div className="flex-1">
-                  <div className="flex flex-wrap items-center gap-3 mb-2">
-                    <h3 className="text-lg font-medium text-slate-900 dark:text-white">{finding.type}</h3>
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      finding.severity === 'High' ? 'bg-red-500/20 text-red-400' :
-                      finding.severity === 'Medium' ? 'bg-amber-500/20 text-amber-400' :
-                      'bg-green-500/20 text-green-400'
-                    }`}>
-                      {finding.severity} Severity
-                    </span>
-                  </div>
-                  <p className="text-slate-600 dark:text-slate-400">{finding.description}</p>
-                </div>
-                <div className="md:text-right shrink-0">
-                  <p className="text-sm text-slate-500 dark:text-slate-500 mb-1">Temperature Differential</p>
-                  <p className="text-xl font-light text-slate-900 dark:text-white">{finding.temp}</p>
-                </div>
+                <div className="w-2 h-2 rounded-full bg-amber-500 mb-4" />
+                <h3 className="text-base font-medium text-slate-900 dark:text-white mb-3">{item.heading}</h3>
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{item.body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Thermal Imagery Example */}
-      <section className="py-24 px-6 bg-white dark:bg-slate-950">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-light text-slate-900 dark:text-white mb-6">
-              Thermal imagery included
-            </h2>
-            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-              High-resolution annotated thermal images clearly showing anomaly locations and severity.
-            </p>
-          </div>
-
-          {/* Thermal Image */}
-          <div className="aspect-video rounded-2xl overflow-hidden border border-gray-200 dark:border-slate-800 relative">
-            <img 
-              src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Harrod%20thermal%20defect%20sample.jpg"
-              alt="Thermal capture with identified hotspots"
-              className="w-full h-full object-cover"
-            />
-            
-            {/* Label */}
-            <div className="absolute bottom-6 left-6 bg-black/50 backdrop-blur px-4 py-2 rounded-lg">
-              <p className="text-white text-sm">Example thermal capture with identified defects</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-24 px-6 bg-gray-50 dark:bg-slate-900">
+      {/* ── CTA ── */}
+      <section className="py-24 px-6 bg-gradient-to-t from-gray-50 to-white dark:from-slate-900 dark:to-slate-950">
         <div className="max-w-3xl mx-auto text-center">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">
-              Get your own comprehensive report
-            </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-lg mb-10">
-              Book a thermal survey and receive a detailed engineering report for your solar system.
-            </p>
+          <h2 className="text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">
+            Ready to get your own report?
+          </h2>
+          <p className="text-slate-600 dark:text-slate-400 text-lg mb-10">
+            Book a survey and receive a comprehensive engineering report for your solar installation.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to={createPageUrl('Contact')}
-              className="group inline-flex items-center gap-3 px-8 py-4 bg-amber-500 text-slate-950 font-medium rounded-full hover:bg-amber-400 transition-all duration-100"
+              className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-amber-500 text-slate-950 font-medium rounded-full hover:bg-amber-400 transition-all duration-100"
             >
               Book a Survey
               <ArrowRight className="w-4 h-4" />
             </Link>
+            <Link
+              to={createPageUrl('Pricing')}
+              className="inline-flex items-center justify-center gap-3 px-8 py-4 border border-gray-300 dark:border-slate-700 text-slate-900 dark:text-white font-medium rounded-full hover:border-gray-400 dark:hover:border-slate-500 hover:bg-gray-100 dark:hover:bg-slate-800/50 transition-all duration-100"
+            >
+              View Pricing
+            </Link>
           </div>
         </div>
       </section>
+
     </div>
   );
 }
