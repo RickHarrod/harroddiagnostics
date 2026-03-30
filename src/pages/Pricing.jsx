@@ -20,7 +20,6 @@ function vat(price) {
 }
 
 function fmt(price) {
-  // If price is null (for "Custom Quote"), handle safely
   if (price === null) return null;
   return Number.isInteger(price) ? price : price.toFixed(2);
 }
@@ -40,7 +39,8 @@ const tiers = {
       description: 'Our core inspection for homeowners who want to know their system is safe and performing as it should.',
       priceEx: 49,
       unit: 'up to 10 panels',
-      scalingNote: '+£5 ex VAT per 4 panels above 10',
+      baseScalingEx: 5,
+      scalingText: 'per 4 panels above 10',
       badge: 'Summer Sale — 50% Off',
       originalEx: 99,
       popular: false,
@@ -59,7 +59,8 @@ const tiers = {
       description: 'A reduced-rate return survey for existing customers — ensuring your system is checked yearly and protected.',
       priceEx: 39,
       unit: 'up to 10 panels',
-      scalingNote: '+£5 ex VAT per 4 panels above 10',
+      baseScalingEx: 5,
+      scalingText: 'per 4 panels above 10',
       badge: 'Returning customers',
       originalEx: 79,
       popular: false,
@@ -76,7 +77,8 @@ const tiers = {
       description: 'A targeted follow-up survey after repairs have been carried out — confirming the fix worked and your system is clear.',
       priceEx: 39,
       unit: 'up to 10 panels',
-      scalingNote: 'Covers original surveyed array',
+      baseScalingEx: null,
+      scalingText: 'Covers original surveyed array',
       badge: 'Summer Sale',
       originalEx: 79,
       popular: false,
@@ -96,7 +98,8 @@ const tiers = {
       description: 'A fast-turnaround inspection for buyers mid-sale — so you know exactly what you are buying before you commit.',
       priceEx: 79,
       unit: 'up to 10 panels',
-      scalingNote: '+£5 ex VAT per 4 panels above 10',
+      baseScalingEx: 5,
+      scalingText: 'per 4 panels above 10',
       badge: '48hr turnaround',
       originalEx: 159,
       popular: true,
@@ -114,7 +117,8 @@ const tiers = {
       description: 'Independent proof your system is healthy — build buyer confidence and protect your asking price.',
       priceEx: 79,
       unit: 'up to 10 panels',
-      scalingNote: '+£5 ex VAT per 4 panels above 10',
+      baseScalingEx: 5,
+      scalingText: 'per 4 panels above 10',
       badge: 'Summer Sale',
       originalEx: 159,
       popular: false,
@@ -132,7 +136,8 @@ const tiers = {
       description: 'A standalone evidence document produced from your existing survey findings — formatted for insurers and legal use.',
       priceEx: 35,
       unit: 'add-on to any survey',
-      scalingNote: 'Requires an existing Harrod Diagnostics survey',
+      baseScalingEx: null,
+      scalingText: 'Requires an existing Harrod Diagnostics survey',
       badge: 'Add-on',
       originalEx: null,
       popular: false,
@@ -152,7 +157,8 @@ const tiers = {
       description: 'Thermal survey plus formal written evidence documentation — everything a landlord needs in one package.',
       priceEx: 149,
       unit: 'up to 50 panels',
-      scalingNote: '+£5 ex VAT per 10 panels above 50',
+      baseScalingEx: 5,
+      scalingText: 'per 10 panels above 50',
       badge: 'Most complete',
       originalEx: null,
       popular: true,
@@ -171,7 +177,8 @@ const tiers = {
       description: 'Full thermal and diagnostic survey for business rooftop systems — detailed findings with actionable recommendations.',
       priceEx: 149,
       unit: 'up to 50 panels',
-      scalingNote: '+£5 ex VAT per 10 panels above 50',
+      baseScalingEx: 5,
+      scalingText: 'per 10 panels above 50',
       badge: null,
       originalEx: null,
       popular: false,
@@ -187,12 +194,14 @@ const tiers = {
     {
       name: 'Annual Inspection Contract',
       description: 'A discounted yearly inspection agreement for commercial clients — predictable costs on a scheduled basis.',
-      priceEx: null,
+      priceEx: 99, // Base price for the "From" logic
       unit: 'From £99',
-      scalingNote: 'Multi-site agreements available',
+      baseScalingEx: null,
+      scalingText: 'Multi-site agreements available',
       badge: 'Contact us',
       originalEx: null,
       popular: false,
+      isContract: true,
       features: [
         'Discounted annual rate vs one-off pricing',
         'Scheduled inspections — no admin burden',
@@ -247,6 +256,11 @@ function PriceCard({ tier, showVAT }) {
       : `£${tier.originalEx}`
     : null;
 
+  // Handle scaling text VAT toggle
+  const scalingPrice = tier.baseScalingEx 
+    ? showVAT ? `£${vat(tier.baseScalingEx)}` : `£${tier.baseScalingEx}`
+    : null;
+
   return (
     <div
       className={`relative flex flex-col p-8 rounded-2xl border transition-all duration-200 ${
@@ -275,21 +289,26 @@ function PriceCard({ tier, showVAT }) {
             <span className="text-xs text-amber-500 font-medium uppercase tracking-wide">Summer Sale</span>
           </div>
         )}
-        {displayPrice ? (
+        
+        {tier.isContract ? (
+           <div className="text-3xl font-bold text-amber-500">From {displayPrice}</div>
+        ) : displayPrice ? (
           <div className="flex items-baseline gap-1">
             <span className="text-4xl font-bold text-amber-500">{displayPrice}</span>
           </div>
         ) : (
-          <div className="text-2xl font-medium text-slate-900 dark:text-white">
-            {tier.unit === 'From £99' ? 'From £99' : 'Custom quote'}
-          </div>
+          <div className="text-2xl font-medium text-slate-900 dark:text-white">Custom quote</div>
         )}
+
         <p className="text-sm text-slate-500 mt-1">
-          {tier.unit !== 'From £99' && tier.unit}
+          {!tier.isContract && tier.unit}
           {showVAT ? ' — VAT included' : ' — ex VAT'}
         </p>
-        {tier.scalingNote && (
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{tier.scalingNote}</p>
+        
+        {tier.scalingText && (
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+            {scalingPrice ? `+${scalingPrice} ${showVAT ? 'inc' : 'ex'} VAT ` : ''}{tier.scalingText}
+          </p>
         )}
       </div>
 
@@ -310,7 +329,7 @@ function PriceCard({ tier, showVAT }) {
             : 'border border-amber-500/50 text-amber-500 hover:bg-amber-500/10'
         }`}
       >
-        {tier.priceEx || tier.unit === 'From £99' ? 'Book Survey' : 'Get a Quote'}
+        {tier.priceEx || tier.isContract ? 'Book Survey' : 'Get a Quote'}
         <ArrowRight className="w-4 h-4" />
       </Link>
     </div>
@@ -334,27 +353,34 @@ export default function Pricing() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950 pt-24">
-      {/* Hero Section */}
-      <section className="py-24 px-6 relative overflow-hidden text-center">
+      {/* ── Hero ── */}
+      <section className="py-24 px-6 relative overflow-hidden">
         <div className="absolute inset-0">
           <img
             src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/DJI_20260318163338_0007_V%20-%20Edited%202.jpg"
-            alt="Solar Survey"
+            alt="Solar panels in warm light"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-white/60 dark:bg-slate-950/60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/65 via-white/55 to-white/40 dark:from-slate-950/65 dark:via-slate-950/55 dark:to-slate-950/40" />
         </div>
-        <div className="relative z-10 max-w-4xl mx-auto">
-          <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-sm mb-6">Pricing</p>
+
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-sm mb-6">
+            Pricing
+          </p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-slate-900 dark:text-white mb-8">
             Transparent pricing<br />
             <span className="text-slate-600 dark:text-slate-400">built around your situation</span>
           </h1>
+          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            Every survey includes thermal imaging, a written report, and independent findings.
+            Select your situation below to see the right options for you.
+          </p>
         </div>
       </section>
 
-      {/* Tabs & Pricing Section */}
-      <section className="py-16 px-6 bg-gray-50 dark:bg-slate-950">
+      {/* ── Tabs + Pricing Cards ── */}
+      <section className="py-16 px-6 bg-gray-100 dark:bg-slate-950">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
             <div className="flex flex-wrap justify-center gap-4 mb-10">
@@ -365,8 +391,10 @@ export default function Pricing() {
                   <button
                     key={tab.id}
                     onClick={() => handleTabChange(tab.id)}
-                    className={`inline-flex items-center gap-3 px-8 py-4 rounded-full text-base font-medium transition-all ${
-                      isActive ? 'bg-amber-500 text-slate-950' : 'bg-white dark:bg-slate-800 border'
+                    className={`inline-flex items-center gap-3 px-8 py-4 rounded-full text-base font-medium transition-all duration-200 ${
+                      isActive
+                        ? 'bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/25 scale-105'
+                        : 'bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 border border-gray-200 dark:border-slate-800 hover:border-amber-500/50 hover:text-slate-900'
                     }`}
                   >
                     <TabIcon className="w-5 h-5" />
@@ -376,16 +404,15 @@ export default function Pricing() {
               })}
             </div>
 
-            {/* VAT Toggle */}
-            <div className="flex items-center justify-center gap-3 mb-12">
-              <span className="text-sm">Ex VAT</span>
+            <div className="flex items-center justify-center gap-3 mb-10">
+              <span className={`text-sm ${!showVAT ? 'text-slate-900 dark:text-white font-medium' : 'text-slate-500'}`}>Ex VAT</span>
               <button
                 onClick={() => setShowVAT(!showVAT)}
-                className={`relative w-12 h-6 rounded-full transition-colors ${showVAT ? 'bg-amber-500' : 'bg-slate-400'}`}
+                className={`relative w-12 h-6 rounded-full transition-colors duration-200 ${showVAT ? 'bg-amber-500' : 'bg-slate-300 dark:bg-slate-700'}`}
               >
-                <span className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform ${showVAT ? 'translate-x-6' : ''}`} />
+                <span className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 ${showVAT ? 'translate-x-6' : ''}`} />
               </button>
-              <span className="text-sm">Inc VAT</span>
+              <span className={`text-sm ${showVAT ? 'text-slate-900 dark:text-white font-medium' : 'text-slate-500'}`}>Inc VAT</span>
             </div>
           </div>
 
@@ -397,23 +424,23 @@ export default function Pricing() {
         </div>
       </section>
 
-      {/* Add-ons Grid */}
-      <section className="py-20 px-6 bg-white dark:bg-slate-900">
+      {/* ── Add-ons ── */}
+      <section className="py-20 px-6 bg-gray-100 dark:bg-slate-900">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-light text-slate-900 dark:text-white mb-4">Optional extras</h2>
-            <p className="text-slate-600 dark:text-slate-400">Enhance your survey at the time of booking.</p>
+            <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-xs mb-4">Optional extras</p>
+            <h2 className="text-3xl font-light text-slate-900 dark:text-white mb-4">Add to any survey</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {addOns.map((addon) => {
               const Icon = addon.icon;
               return (
-                <div key={addon.name} className="p-6 rounded-2xl border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800">
-                  <div className="w-10 h-10 bg-amber-500/10 rounded-lg flex items-center justify-center mb-4">
+                <div key={addon.name} className="p-6 rounded-2xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-amber-500/40 transition-all duration-200">
+                  <div className="w-10 h-10 mb-4 rounded-lg bg-amber-500/15 flex items-center justify-center">
                     <Icon className="w-5 h-5 text-amber-500" />
                   </div>
-                  <h3 className="text-sm font-medium mb-2">{addon.name}</h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">{addon.desc}</p>
+                  <h3 className="text-sm font-medium text-slate-900 dark:text-white mb-2">{addon.name}</h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-300 leading-relaxed mb-4">{addon.desc}</p>
                   <p className="text-amber-500 font-semibold text-sm">
                     {showVAT ? `£${vat(addon.priceEx)} inc VAT` : `£${addon.priceEx} ex VAT`}
                   </p>
@@ -424,15 +451,67 @@ export default function Pricing() {
         </div>
       </section>
 
-      {/* Final Utility Section */}
-      <section className="py-24 px-6 text-center">
-        <div className="max-w-3xl mx-auto bg-amber-500/5 p-12 rounded-3xl border border-amber-500/20">
-          <h2 className="text-3xl font-light mb-6">Not sure which option?</h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-10">Get in touch and we will recommend the right survey for your installation.</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to={createPageUrl('Contact')} className="px-8 py-4 bg-amber-500 text-slate-950 font-medium rounded-full hover:bg-amber-400 transition-all">
-              Contact Us
+      {/* ── Utility Scale ── */}
+      <section className="py-12 px-6 bg-white dark:bg-slate-950">
+        <div className="max-w-3xl mx-auto">
+          <div className="p-8 bg-gray-50 dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 text-center">
+            <p className="text-amber-500 font-medium tracking-[0.3em] uppercase text-xs mb-4">Utility scale</p>
+            <h3 className="text-2xl font-light text-slate-900 dark:text-white mb-3">MW-scale solar farms & multi-site portfolios</h3>
+            <p className="text-slate-600 dark:text-slate-400 mb-6">We offer comprehensive thermal inspection for large commercial installations and utility-scale arrays. Multi-site agreements, ongoing inspection contracts, and bespoke reporting available.</p>
+            <Link to={createPageUrl('Contact')} className="inline-flex items-center gap-2 text-amber-500 hover:text-amber-400 font-medium">
+              Contact us for custom pricing
+              <ArrowRight className="w-4 h-4" />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Baseline Standards ── */}
+      <section className="py-24 px-6 bg-gray-100 dark:bg-slate-900">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-light text-slate-900 dark:text-white mb-4">What every survey includes</h2>
+            <p className="text-slate-600 dark:text-slate-400">Regardless of which package you choose, these are our baseline standards.</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              {
+                title: 'Every survey includes',
+                items: ['Calibrated radiometric thermal imaging', 'High-resolution visual capture', 'Full fault identification and classification', 'Annotated thermal maps', 'PDF engineering report', 'Raw thermal data files'],
+              },
+              {
+                title: 'Our commitment',
+                items: ['No upselling or sales bias', 'IEC TS 62446-3 compliant methods', 'Fully insured drone operations', 'CAA qualified pilots', 'Flexible scheduling', 'Satisfaction guarantee'],
+              },
+            ].map((section) => (
+              <div key={section.title} className="p-8 bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700">
+                <h3 className="text-xl font-medium text-slate-900 dark:text-white mb-6">{section.title}</h3>
+                <ul className="space-y-3">
+                  {section.items.map((item) => (
+                    <li key={item} className="flex items-center gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
+                      <span className="text-slate-600 dark:text-slate-200 text-sm">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Final CTA ── */}
+      <section className="py-24 px-6 bg-gradient-to-t from-gray-50 to-white dark:from-slate-900 dark:to-slate-950">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">Not sure which option?</h2>
+          <p className="text-slate-600 dark:text-slate-400 text-lg mb-10">Get in touch and we will recommend the right survey for your installation.</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to={createPageUrl('Contact')} className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-amber-500 text-slate-950 font-medium rounded-full hover:bg-amber-400 transition-all duration-100">
+              Contact Us <ArrowRight className="w-4 h-4" />
+            </Link>
+            <a href="https://rickharrod.github.io/harroddiagnostics/Sample%20report%20Feb%202026.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-3 px-8 py-4 border border-gray-300 dark:border-slate-700 text-slate-900 dark:text-white font-medium rounded-full hover:bg-gray-100 dark:hover:bg-slate-800/50 transition-all duration-100">
+              View Sample Report
+            </a>
           </div>
         </div>
       </section>
