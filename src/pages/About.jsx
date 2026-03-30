@@ -65,7 +65,7 @@ export default function About() {
 
             {/* Founder Photo — drop-shadow traces the PNG cutout silhouette */}
             <img
-              src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Rick%20PNG%20Harrod%20Diagnostics.png"
+              src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Rick%20Harrod%20Diagnostics.jpg"
               alt="Ricky Harrod"
               className="w-56 md:w-64 lg:w-72 rounded-xl shadow-xl object-cover border border-white/20 dark:border-slate-800/40"
             />
