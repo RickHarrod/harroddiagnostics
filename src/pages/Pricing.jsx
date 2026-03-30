@@ -128,7 +128,7 @@ const tiers = {
         'Demonstrates transparency to buyers',
         'Transferable Certificate included',
         'Shareable with estate agents',
-        '5 business day turnaround',
+        '2 business day turnaround',
       ],
     },
     {
