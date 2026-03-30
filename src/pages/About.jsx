@@ -63,11 +63,11 @@ export default function About() {
               </h1>
             </div>
 
-            {/* Founder Photo */}
+            {/* Founder Photo — drop-shadow traces the PNG cutout silhouette */}
             <img
               src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Rick%20PNG%20Harrod%20Diagnostics.png"
               alt="Ricky Harrod"
-              className="w-56 md:w-64 lg:w-72 rounded-xl shadow-xl object-cover border border-white/20 dark:border-slate-800/40"
+              className="w-56 md:w-64 lg:w-72 object-cover drop-shadow-[0_0_18px_rgba(255,255,255,0.25)]"
             />
           </div>
         </div>
@@ -101,7 +101,6 @@ export default function About() {
             prohibitively expensive.
           </p>
 
-          {/* FIX 2: Styled callout to break up the prose and anchor the key message visually */}
           <blockquote className="my-12 px-8 py-6 border-l-4 border-amber-500 bg-white dark:bg-slate-950 rounded-r-2xl">
             <p className="text-xl md:text-2xl font-light text-slate-700 dark:text-slate-300 leading-relaxed italic">
               &ldquo;Harrod Diagnostics was created to close that gap — bringing utility‑scale inspection 
@@ -135,17 +134,25 @@ export default function About() {
             ))}
           </div>
 
-          {/* FIX 1: Closing paragraph stays domestic — no O&M/asset manager language */}
-          <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-10">
             Whether you&apos;re a homeowner seeking peace of mind, a buyer assessing a property, or a 
             landlord ensuring your system is safe and compliant — our goal is the same: objective 
             data you can trust, delivered with transparency and technical rigour.
           </p>
 
+          {/* Founder sign-off */}
+          <div className="flex items-center gap-4 pt-6 border-t border-gray-200 dark:border-slate-800">
+            <div className="w-px h-8 bg-amber-500" />
+            <div>
+              <p className="text-slate-900 dark:text-white font-medium">Ricky Harrod</p>
+              <p className="text-sm text-slate-500 dark:text-slate-500">Founder, Harrod Diagnostics</p>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      {/* Values — FIX 3: Heading changed from "Our principles" to "How we work" */}
+      {/* Values */}
       <section className="py-32 px-6 bg-white dark:bg-slate-950 relative overflow-hidden">
         <div className="absolute inset-0">
           <img
@@ -158,7 +165,6 @@ export default function About() {
 
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="text-center mb-20">
-            {/* FIX 3: More human, less corporate heading */}
             <h2 className="text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">
               How we work
             </h2>
@@ -206,7 +212,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* FIX 4: CTA now has two options — Contact + secondary link to Services */}
+      {/* CTA */}
       <section className="py-24 px-6 bg-white dark:bg-slate-950">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">
@@ -226,7 +232,6 @@ export default function About() {
               <ArrowRight className="w-4 h-4" />
             </Link>
 
-            {/* FIX 4: Secondary CTA added to catch people not yet ready to contact */}
             <Link
               to={createPageUrl('Services')}
               className="inline-flex items-center justify-center gap-3 px-8 py-4 border border-gray-300 dark:border-slate-700 text-slate-900 dark:text-white font-medium rounded-full hover:border-gray-400 dark:hover:border-slate-500 hover:bg-gray-100 dark:hover:bg-slate-800/50 transition-all duration-100"
