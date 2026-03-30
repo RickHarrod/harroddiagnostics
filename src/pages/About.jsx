@@ -30,18 +30,18 @@ export default function About() {
 
         {/* Background image */}
         <div className="absolute inset-0">
-          <img 
-            src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Solar%20Field%20home%20page.jpg" 
+          <img
+            src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Solar%20Field%20home%20page.jpg"
             alt="Solar Field"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b 
-            from-white/65 via-white/55 to-white/40 
-            dark:from-slate-950/65 dark:via-slate-950/55 dark:to-slate-950/40" 
+          <div className="absolute inset-0 bg-gradient-to-b
+            from-white/65 via-white/55 to-white/40
+            dark:from-slate-950/65 dark:via-slate-950/55 dark:to-slate-950/40"
           />
-          <div className="absolute inset-0 
+          <div className="absolute inset-0
             bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.35)_100%)]
-            dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.35)_100%)]" 
+            dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.35)_100%)]"
           />
         </div>
 
@@ -76,50 +76,80 @@ export default function About() {
       {/* Story */}
       <section className="py-16 px-6 bg-gray-50 dark:bg-slate-900">
         <div className="max-w-4xl mx-auto">
-          <div className="prose prose-lg dark:prose-invert max-w-none">
-            <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
-              Harrod Diagnostics was founded on a simple belief: solar owners deserve clear, independent answers about the health of their system, without sales pressure, guesswork, or long waits for "monitoring data" to catch up.
-            </p>
 
-            <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
-              The business began with a personal frustration. After installing a large solar array on my own home, I noticed behaviour that didn't look right, panels shedding snow unevenly and patterns that hinted at possible hotspots or underperforming modules. Remote monitoring showed "no issues," and I was advised to wait a year to see if production dipped below forecast. For most homeowners, that's the end of the road: uncertainty, doubt, and no practical way to challenge a warranty claim.
-            </p>
+          <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
+            Harrod Diagnostics was founded on a simple belief: solar owners deserve clear, independent 
+            answers about the health of their system — without sales pressure, guesswork, or long waits 
+            for &ldquo;monitoring data&rdquo; to catch up.
+          </p>
 
-            <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
-              My background in operations and data‑driven decision‑making meant guesswork wasn’t an option — I needed objective evidence. Thermal imaging provided it. What started as an investigation into my own system quickly expanded to family and friends, where I found more faults than expected. It became clear that domestic customers were underserved, thermographic surveys were priced for utility scale plants, and the few domestic services available were often prohibitively expensive.
-            </p>
+          <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
+            The business began with a personal frustration. After installing a large solar array on my 
+            own home, I noticed behaviour that didn&apos;t look right — panels shedding snow unevenly and 
+            patterns that hinted at possible hotspots or underperforming modules. Remote monitoring showed 
+            &ldquo;no issues,&rdquo; and I was advised to wait a year to see if production dipped below forecast. 
+            For most homeowners, that&apos;s the end of the road: uncertainty, doubt, and no practical way 
+            to challenge a warranty claim.
+          </p>
 
-            <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
-              Harrod Diagnostics was created to close that gap.
-            </p>
+          <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
+            My background in operations and data‑driven decision‑making meant guesswork wasn&apos;t an option 
+            — I needed objective evidence. Thermal imaging provided it. What started as an investigation 
+            into my own system quickly expanded to family and friends, where I found more faults than 
+            expected. It became clear that domestic customers were underserved: thermographic surveys were 
+            priced for utility‑scale plants, and the few domestic services available were often 
+            prohibitively expensive.
+          </p>
 
-            <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
-              Today, we provide accessible, engineering grade thermographic inspections for domestic, commercial, and utility scale solar assets. We use drone mounted radiometric thermal cameras and workflows aligned with IEC TS 62446‑3, the international standard for PV thermography. That means consistent, defensible results suitable for warranty claims, insurer evidence, and technical assessments.
+          {/* FIX 2: Styled callout to break up the prose and anchor the key message visually */}
+          <blockquote className="my-12 px-8 py-6 border-l-4 border-amber-500 bg-white dark:bg-slate-950 rounded-r-2xl">
+            <p className="text-xl md:text-2xl font-light text-slate-700 dark:text-slate-300 leading-relaxed italic">
+              &ldquo;Harrod Diagnostics was created to close that gap — bringing utility‑scale inspection 
+              standards to the homeowners who need them most.&rdquo;
             </p>
+          </blockquote>
 
-            <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
-              Our reports are built for clarity and action:
-            </p>
+          <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
+            Today, we provide accessible, engineering‑grade thermographic inspections for domestic and 
+            commercial solar assets. We use drone‑mounted radiometric thermal cameras and workflows 
+            aligned with IEC TS 62446‑3 — the international standard for PV thermography. That means 
+            consistent, defensible results suitable for warranty claims, insurer evidence, and 
+            technical assessments.
+          </p>
 
-            <ul className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-8 list-disc ml-6">
-              <li>Clear fault classification</li>
-              <li>Annotated thermal imagery</li>
-              <li>Straightforward explanations - no jargon without purpose</li>
-              <li>Specific, practical recommendations</li>
-            </ul>
+          <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+            Our reports are built for clarity and action:
+          </p>
 
-            <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-              Whether you're a homeowner seeking peace of mind, a business managing a portfolio, or an asset manager or O&M team responsible for system performance, our goal is the same: objective data you can trust, delivered with transparency and technical rigour.
-            </p>
+          <div className="grid sm:grid-cols-2 gap-4 mb-8">
+            {[
+              'Clear fault classification',
+              'Annotated thermal imagery',
+              'Straightforward explanations — no jargon without purpose',
+              'Specific, practical recommendations',
+            ].map((item) => (
+              <div key={item} className="flex items-start gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2.5 shrink-0" />
+                <span className="text-slate-600 dark:text-slate-400">{item}</span>
+              </div>
+            ))}
           </div>
+
+          {/* FIX 1: Closing paragraph stays domestic — no O&M/asset manager language */}
+          <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+            Whether you&apos;re a homeowner seeking peace of mind, a buyer assessing a property, or a 
+            landlord ensuring your system is safe and compliant — our goal is the same: objective 
+            data you can trust, delivered with transparency and technical rigour.
+          </p>
+
         </div>
       </section>
 
-      {/* Values */}
+      {/* Values — FIX 3: Heading changed from "Our principles" to "How we work" */}
       <section className="py-32 px-6 bg-white dark:bg-slate-950 relative overflow-hidden">
         <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1611365892117-00ac6fb2fad2?w=1920&q=80" 
+          <img
+            src="https://images.unsplash.com/photo-1611365892117-00ac6fb2fad2?w=1920&q=80"
             alt="Solar installation detail"
             className="w-full h-full object-cover opacity-10"
           />
@@ -128,8 +158,9 @@ export default function About() {
 
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="text-center mb-20">
+            {/* FIX 3: More human, less corporate heading */}
             <h2 className="text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">
-              Our principles
+              How we work
             </h2>
           </div>
 
@@ -151,45 +182,58 @@ export default function About() {
       <section className="py-24 px-6 bg-gray-50 dark:bg-slate-900">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-light text-slate-900 dark:text-white mb-12 text-center">
-            Standards & Compliance
+            Standards &amp; Compliance
           </h2>
 
           <div className="grid md:grid-cols-2 gap-8">
             <div className="p-8 bg-white dark:bg-slate-950 rounded-2xl border border-gray-200 dark:border-slate-800">
               <h3 className="text-lg font-medium text-amber-500 mb-4">IEC TS 62446-3</h3>
               <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                Our inspection methodology follows the international technical specification 
-                for thermographic inspection of PV plants, ensuring reliable and reproducible results.
+                Our inspection methodology follows the international technical specification for 
+                thermographic inspection of PV plants, ensuring reliable and reproducible results.
               </p>
             </div>
 
             <div className="p-8 bg-white dark:bg-slate-950 rounded-2xl border border-gray-200 dark:border-slate-800">
               <h3 className="text-lg font-medium text-amber-500 mb-4">CAA Certified Drone Operations</h3>
               <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                All flights are conducted by CAA‑certified remote pilots operating within the UK's commercial drone regulations, with full insurance and documented safety procedures for every mission.
+                All flights are conducted by CAA‑certified remote pilots operating within the UK&apos;s 
+                commercial drone regulations, with full insurance and documented safety procedures 
+                for every mission.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
+      {/* FIX 4: CTA now has two options — Contact + secondary link to Services */}
       <section className="py-24 px-6 bg-white dark:bg-slate-950">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">
             Ready for a thermal survey?
           </h2>
           <p className="text-slate-600 dark:text-slate-400 text-lg mb-10">
-            See exactly what's happening in your solar system with independent, 
+            See exactly what&apos;s happening in your solar system with independent, 
             engineering-grade thermal analysis.
           </p>
-          <Link
-            to={createPageUrl('Contact')}
-            className="group inline-flex items-center gap-3 px-8 py-4 bg-amber-500 text-slate-950 font-medium rounded-full hover:bg-amber-400 transition-all duration-100"
-          >
-            Get in Touch
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              to={createPageUrl('Contact')}
+              className="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-amber-500 text-slate-950 font-medium rounded-full hover:bg-amber-400 transition-all duration-100"
+            >
+              Get in Touch
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+
+            {/* FIX 4: Secondary CTA added to catch people not yet ready to contact */}
+            <Link
+              to={createPageUrl('Services')}
+              className="inline-flex items-center justify-center gap-3 px-8 py-4 border border-gray-300 dark:border-slate-700 text-slate-900 dark:text-white font-medium rounded-full hover:border-gray-400 dark:hover:border-slate-500 hover:bg-gray-100 dark:hover:bg-slate-800/50 transition-all duration-100"
+            >
+              View Services
+            </Link>
+          </div>
         </div>
       </section>
 
