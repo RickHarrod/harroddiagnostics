@@ -8,19 +8,11 @@ export default function Home() {
     <div className="min-h-screen bg-white dark:bg-slate-950">
 
       {/* Hero Section */}
-      {/* CHANGE 1: Added h-[85vh] for mobile. 
-          This ensures the video doesn't get "too tall" and push your buttons off the screen on a phone.
-      */}
       <section className="relative h-[85vh] md:min-h-screen flex items-center justify-center overflow-hidden">
 
         {/* Background Video */}
         <div className="absolute inset-0">
           <iframe
-            /* CHANGE 2: The "3x2 / Portrait" fix.
-               - scale-[1.8]: On mobile, we zoom the video in significantly. 
-                 This crops the empty sky/sides and focuses on the center action.
-               - md:scale-100: On desktop, it returns to the original 16:9 view.
-            */
             className="w-full h-full object-cover object-center pointer-events-none scale-[1.8] md:scale-100"
             src="https://www.youtube.com/embed/4H1UDwwyGpI?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&loop=1&playlist=4H1UDwwyGpI&playsinline=1"
             title="Background video"
@@ -28,17 +20,17 @@ export default function Home() {
             allow="autoplay; fullscreen"
           ></iframe>
 
-          {/* CHANGE 3: Dynamic Overlays. 
-              Increased opacity on mobile (75/65) to help text stand out against zoomed video.
+          {/* MODIFIED OPACITY: 
+              "Golden Mean" — Subtle enough to see the video, dark enough to read text.
           */}
           <div className="absolute inset-0 bg-gradient-to-b 
-            from-white/75 via-white/65 to-white/70
-            dark:from-slate-950/85 dark:via-slate-950/65 dark:to-slate-950/80" 
+            from-white/58 via-white/48 to-white/40
+            dark:from-slate-950/58 dark:via-slate-950/48 dark:to-slate-950/40" 
           />
 
           <div className="absolute inset-0 
-            bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.4)_100%)]
-            dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.6)_100%)]" 
+            bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(255,255,255,0.3)_100%)]
+            dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,6,23,0.3)_100%)]" 
           />
 
           {/* Warm accent glow */}
@@ -82,9 +74,10 @@ export default function Home() {
               <ArrowRight className="w-4 h-4" />
             </Link>
 
+            {/* MODIFIED BUTTON: Added subtle background color (bg-white/80) so it's not transparent */}
             <Link
               to={createPageUrl('Contact')}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 border border-gray-400 dark:border-slate-700 text-slate-900 dark:text-white font-medium rounded-full hover:border-gray-500 dark:hover:border-slate-500 hover:bg-gray-100 dark:hover:bg-slate-800/50 transition-all duration-100"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/80 dark:bg-slate-900/80 border border-gray-300 dark:border-slate-700 text-slate-900 dark:text-white font-medium rounded-full hover:border-gray-500 dark:hover:border-slate-500 hover:bg-white dark:hover:bg-slate-800 transition-all duration-100"
             >
               Get a Quote
             </Link>
@@ -92,10 +85,11 @@ export default function Home() {
         </div>
 
         {/* Animated scroll indicator */}
+        {/* MODIFIED ICON: Added bg-white/40 and changed the dot to Amber-500 */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex">
-          <div className="w-6 h-10 border-2 border-gray-300 dark:border-slate-700 rounded-full flex justify-center pt-2">
+          <div className="w-6 h-10 border-2 border-slate-400 dark:border-slate-600 bg-white/30 dark:bg-slate-800/30 backdrop-blur-sm rounded-full flex justify-center pt-2">
             <div
-              className="w-1 h-2 bg-gray-400 dark:bg-slate-500 rounded-full"
+              className="w-1.5 h-1.5 bg-amber-500 rounded-full"
               style={{
                 animation: 'scrollBounce 1.6s ease-in-out infinite',
               }}
@@ -104,7 +98,7 @@ export default function Home() {
           <style>{`
             @keyframes scrollBounce {
               0%, 100% { transform: translateY(0); opacity: 1; }
-              50% { transform: translateY(10px); opacity: 0.3; }
+              50% { transform: translateY(12px); opacity: 0.4; }
             }
           `}</style>
         </div>
