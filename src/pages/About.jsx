@@ -67,7 +67,7 @@ export default function About() {
             <img
               src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Rick%20PNG%20Harrod%20Diagnostics.png"
               alt="Ricky Harrod"
-              className="w-56 md:w-64 lg:w-72 rounded-xl object-cover drop-shadow-[0_0_18px_rgba(255,255,255,0.25)]"
+              className="w-56 md:w-64 lg:w-72 rounded-xl shadow-xl object-cover border border-white/20 dark:border-slate-800/40"
             />
           </div>
         </div>
