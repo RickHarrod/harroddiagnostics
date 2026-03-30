@@ -118,7 +118,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <p className="text-sm text-slate-500 dark:text-slate-500 mb-1">Phone</p>
-                      <p className="text-slate-900 dark:text-white">07711 130421</p>
+                      <p className="text-slate-900 dark:text-white">07356 208212</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">

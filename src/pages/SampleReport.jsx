@@ -76,7 +76,7 @@ export default function SampleReport() {
         {/* Background image */}
         <div className="absolute inset-0">
           <img 
-            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698cab618b14d7dafc7e8318/4b08a0178_edited-photo-5.png" 
+            src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Drone%20flight%20wide1.jpg" 
             alt="Solar array"
             className="w-full h-full object-cover"
           />

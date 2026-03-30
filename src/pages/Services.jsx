@@ -313,7 +313,7 @@ export default function Services() {
       <section className="py-24 px-6 relative overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://raw.githubusercontent.com/RickHarrod/harroddiagnostics/refs/heads/main/Drone%20flight%20wide1.jpg"
+            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698cab618b14d7dafc7e8318/4b08a0178_edited-photo-5.png"
             alt="Solar panels aerial view"
             className="w-full h-full object-cover"
           />
