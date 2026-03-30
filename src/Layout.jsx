@@ -199,7 +199,7 @@ function LayoutContent({ children, currentPageName }) {
 
             {/* Links */}
             <div>
-              <h4 className="text-white dark:text-slate-900 font-medium mb-4">Services</h4>
+              <h4 className="text-white dark:text-slate-900 font-medium mb-4">Explore</h4>
               <ul className="space-y-3">
                 {['Services', 'Pricing', 'SampleReport'].map((page) => (
                   <li key={page}>
@@ -220,10 +220,10 @@ function LayoutContent({ children, currentPageName }) {
               <ul className="space-y-3">
                 <li>
                   <a 
-                    href="tel:07711130421" 
+                    href="tel:07356208212" 
                     className="text-slate-400 dark:text-slate-600 hover:text-amber-500 transition-colors"
                   >
-                    07711 130421
+                    07356 208212
                   </a>
                 </li>
                 <li>
